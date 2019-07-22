@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 import os
+from selenium import webdriver
+import clipboard    #for pasting copied instance
+from bs4 import BeautifulSoup
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #path of uploaded file
 path = "a"
+savedFormPath = "a"
 data = ""
+webdriverPath = os.path.join(BASE_DIR,'chromedriver')
 
 def home(request):
 	return render(request, 'home.html')
@@ -21,15 +26,10 @@ def py_upload(request):
             name = fs.save(uploaded_file.name, uploaded_file)
             global path
             path = fs.path(name)
-            
-            ##
-            ##
-            from selenium import webdriver
-            import clipboard    #for pasting copied instance
-            from bs4 import BeautifulSoup
+            #debug print("THE PATH ",path)
 
-            #TODO set correct chromedriver path
-            driver = webdriver.Chrome(executable_path = "/usr/bin/chromedriver")
+            global webdriverPath
+            driver = webdriver.Chrome(executable_path = webdriverPath)
             driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
 
             fileinput = driver.find_element_by_id("validatedCustomFile")
@@ -126,7 +126,6 @@ def py_form(request):
         form = os.path.join(form,'form.html')
         formObject = open(form,"r")
         data = formObject.read()
-        print(data)
         formObject.close()
 
         #editing form with POST values
@@ -153,17 +152,73 @@ def py_form(request):
         # saving modified data in a different file
         savedForm = os.path.join(BASE_DIR,'templates')
         savedForm = os.path.join(savedForm,'savedForm.html')
+        global savedFormPath
+        savedFormPath = savedForm  #used in validating
         savedFormObject = open(savedForm,"w+")
         savedFormObject.write(str(soup))
         savedFormObject.close()
-        print(str(soup))
+        #debug print("SECOND PATH ", savedForm)
 
-        return redirect('/response/',{'flag': True})
+        return redirect('/response/')
 
     return render(request,'form.html')    
 
 def py_response(request):
     if request.method == 'POST':
+        global webdriverPath
+        driver = webdriver.Chrome(executable_path = webdriverPath)
+        driver.get("https://server001.cloudehrserver.com/cot/opt/xml_instance_validator")
+
+        fileinput = driver.find_element_by_id("validatedCustomFile")
+        #get path of opt from system
+        #global path
+        fileinput.send_keys(savedFormPath)
+        submitbutton = driver.find_element_by_name("doit")
+        submitbutton.click()
+        element = driver.find_element_by_xpath("/html/body/main/section[2]/div")
+        source_code = element.get_attribute("outerHTML")
+        driver.quit()
+        #remove heart element
+        soup = BeautifulSoup(source_code,'html.parser')
+        heartElement = soup.find("svg",{'class':"heart"})
+        if heartElement:
+            heartElement.decompose()
+        resultTag  = soup.find("h2")
+        if "is valid" in resultTag.text:
+            resultTag.string.replace_with("Document instance is valid!")
+        htmlheadString ="""<!DOCTYPE html>
+            <html>
+                <head>
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                    <title>Validator Response</title>
+                </head>
+                <body>
+            <form action="" method="post">
+                {% csrf_token %}
+            """
+
+        buttonString = """<div class="container">
+            <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="submit" name="valid" value="Upload Again" />
+                    
+                </form>
+            </div>
+        """
+        source_code = htmlheadString + "\n"+ str(soup) + "\n"+ buttonString
+        newfilepath = os.path.join(BASE_DIR,'templates')
+        newfilepath = os.path.join(newfilepath,'valid.html')
+        newfileobject = open(newfilepath,"w+")
+        newfileobject.write(source_code)
+        newfileobject.close()
+        return redirect('/valid/')
+
+
+    return render(request,'response.html')
+
+def py_valid(request):
+    if request.method == 'POST':
         return redirect('/upload/')
-    return render(request,'response.html',{'flag':True})
+    return render(request,'valid.html') 
+
 
