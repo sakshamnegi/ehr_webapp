@@ -6,21 +6,17 @@
 
 {% block body %}
 <div class="container">
-{% if flag %}
 <div class="alert alert-success" role="alert">
-  Form submitted successfully
-</div>
-{% else %}
-<div class="alert alert-danger" role="alert">
-  Error while submitting form.
-</div>
+  Document saved successfully
 
-{% endif %}
+</div>
 <form action="" method="post">
 		{% csrf_token %}
-    	<input type="submit" name="response" value="Upload Again" />
+    	<input type="submit" name="response" value="Validate Document" />
 		
-	</form>
+</form>
+
+
 </div>
 
 {% endblock %}
