@@ -59,6 +59,16 @@ def py_upload(request):
                 if (label.text=="Event Series" or label.text=="Any event" or label.text=="Tree" or label.text=="List" or label.text=="structure" or label.text=="history"):  #extra stuff to be removed from form
                     label.decompose()
 
+            # making the observations bold
+            divs = soup.find_all('div', {'class':"OBSERVATION"})
+            for div in divs:
+            	temp = div.label
+            	new_tag = soup.new_tag('b')
+            	strs = temp.text
+            	temp.clear()
+            	temp.insert(1, new_tag)
+            	temp.b.append(strs)
+
             global data
             data = str(soup)
 
