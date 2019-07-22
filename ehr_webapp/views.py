@@ -29,14 +29,12 @@ def py_upload(request):
             from bs4 import BeautifulSoup
 
             #TODO set correct chromedriver path
-            webdriverPath = os.path.join(BASE_DIR,"chromedriver")
-            driver = webdriver.Chrome(webdriverPath)
-
+            driver = webdriver.Chrome(executable_path = "/usr/bin/chromedriver")
             driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
 
             fileinput = driver.find_element_by_id("validatedCustomFile")
             #get path of opt from system
-            global path#path = "/home/rakshit/Documents/openEHR/vital_signs_summary.en.v1.opt"
+            #global path
             fileinput.send_keys(path)
 
             submitbutton = driver.find_element_by_name("doit")
@@ -65,7 +63,6 @@ def py_upload(request):
             data = str(soup)
 
             #delete file from django(local)
-            
             fs.delete(name)
 
             ##create new html file
@@ -74,22 +71,22 @@ def py_upload(request):
             newfileobject = open(newfilepath,"w+")
 
             #add button code to html
-            htmlheadString ="""{% extends 'base.html' %}
-
-            {% block head %}
-            <title>Form</title>
-            {% endblock %}
-
-            {% block body %}
+            htmlheadString ="""<!DOCTYPE html>
+            <html>
+                <head>
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                    <title>Form</title>
+                </head>
+                <body>
+            <form action="" method="post">
+                {% csrf_token %}
             """
 
             buttonString = """<div class="container">
-            <form action="" method="post">
-            {% csrf_token %}
             <input type="submit" name="Submit" value="Submit" />
-            </form>
             </div>
-            {% endblock %}
+            </form>
+            </html>
             """
 
             data = htmlheadString + data + "\n" + buttonString
@@ -97,13 +94,70 @@ def py_upload(request):
             newfileobject.close()
 
             return redirect ('/form/')
+            ##
+            ##
 
     return render(request,'upload.html')
 
 
 def py_form(request):
+
+    import ast
+    from bs4 import BeautifulSoup
+
     if request.method == 'POST':
         ##TODO submit and send true false whether successful or not
+        temp = str(request.POST)
+        POSTdata = ""
+        flag = 0
+        for char in temp :
+            if(char == '{'):
+                flag = 1
+            if(flag == 1):
+                POSTdata = POSTdata + char
+            if(char == '}'):
+                flag = 0
+                break
+
+        rules = ast.literal_eval(POSTdata) # it is now a python dictionary
+
+        #opening form file
+        form = os.path.join(BASE_DIR,'templates')
+        form = os.path.join(form,'form.html')
+        formObject = open(form,"r")
+        data = formObject.read()
+        print(data)
+        formObject.close()
+
+        #editing form with POST values
+        sourceCode = data
+        soup = BeautifulSoup(sourceCode, 'html.parser')
+
+        for key, value in rules.items():
+            value = value[0]
+            #searching for 'input' tag
+            try:
+                soup.find('input', {'name' : key})['value'] = value
+            except TypeError:
+                pass
+
+            #searching for 'select' tag
+            selects = soup.find('select', {'name' : key})
+            try:
+                children = selects.findChildren('option', {'value':value})
+                for child in children:
+                    child['selected'] = "selected"
+            except AttributeError:
+                pass
+
+        # saving modified data in a different file
+        savedForm = os.path.join(BASE_DIR,'templates')
+        savedForm = os.path.join(savedForm,'savedForm.html')
+        savedFormObject = open(savedForm,"w+")
+        savedFormObject.write(str(soup))
+        savedFormObject.close()
+        print(str(soup))
+
         return redirect('/response/',{'flag': True})
 
     return render(request,'form.html')    

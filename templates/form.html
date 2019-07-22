@@ -1,10 +1,12 @@
-{% extends 'base.html' %}
-
-            {% block head %}
-            <title>Form</title>
-            {% endblock %}
-
-            {% block body %}
+<!DOCTYPE html>
+            <html>
+                <head>
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                    <title>Form</title>
+                </head>
+                <body>
+            <form action="" method="post">
+                {% csrf_token %}
             <div class="container">
 
 <div>
@@ -268,7 +270,7 @@
 <div class="col-md-5">
 <select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0006]/state[at0007]/items[at1005]/value/units">
 <option value=""></option>
-<option value="°">°</option>
+<option value="deg">deg</option>
 <option value="deg">deg</option>
 </select>
 </div>
@@ -679,10 +681,8 @@
 </div>
 </div>
 <div class="container">
-            <form action="" method="post">
-            {% csrf_token %}
             <input type="submit" name="Submit" value="Submit" />
-            </form>
             </div>
-            {% endblock %}
+            </form>
+            </html>
             
