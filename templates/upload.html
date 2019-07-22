@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>OPT to form</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+<h1>OPT to form converter</h1>
+</div>
+
+
+
+<div class="container">
+	<form  method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<input type="file" name="document">
+		<button class= "btn btn-primary" type="submit" name="Button" onclick="location.href = '{% url 'form' %}'">OPT to Form</button>
+	</form>
+</div>
+<hr>
+{% if data %}
+{{data | safe}}
+{% endif %}
+</div>
+{% endblock %}

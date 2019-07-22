@@ -1,0 +1,9 @@
+1. Added bootstrap cdn in base.html template. All other html templates will extend from base.html
+
+
+
+BEFORE RUNNING
+1. Install pip requirements
+2. Install xsel for copy paste
+3. Install and config chromedriver
+

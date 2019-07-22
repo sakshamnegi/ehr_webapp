@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+<title>EHRApp Home</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+	<h1>Welcome!</h1>
+</div>	
+<div class="container">
+    <p class="lead">This is the EHR webapp homepage</p><br>
+
+	<button class= "btn btn-primary" type="button" name="Button" onclick="location.href = '{% url 'upload' %}'">
+	Get form from OPT</button>
+</div>
+{% endblock %}

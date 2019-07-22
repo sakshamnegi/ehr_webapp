@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Response</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+{% if flag %}
+<div class="alert alert-success" role="alert">
+  Form submitted successfully
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+  Error while submitting form.
+</div>
+
+{% endif %}
+<form action="" method="post">
+		{% csrf_token %}
+    	<input type="submit" name="respnse" value="Upload Again" />
+		
+	</form>
+</div>
+
+{% endblock %}
