@@ -179,6 +179,50 @@ def py_form(request):
         savedFormObject.close()
         #debug print("SECOND PATH ", savedForm)
 
+        # converting the saved html to json
+        import json
+        newDict = {}
+
+        for key in rules:
+        	#finding input tags
+        	flag = 1
+        	ip = soup.find('input', {'name':key})
+        	try:
+        		curTag = ip.previous_element
+        	except AttributeError:
+        		flag = 0
+        		pass
+        	while(flag==1 and curTag.name!='label'):
+        		curTag = curTag.previous_element
+        	if(flag == 1):
+        		newDict[curTag.text] = rules[key]
+
+        	# finding select tags
+        	flag = 1
+        	sl = soup.find('select', {'name':key})
+        	try:
+        	    curTag = sl.previous_element
+        	except AttributeError:
+        	    flag=0
+        	    pass
+        	while(flag==1 and curTag.name!='label'):
+        	    curTag = curTag.previous_element
+        	if(flag==1):
+        		children = sl.findChildren('option', {'value':rules[key]}) # value is given id and not the actual option
+        		if(curTag.text not in newDict): # it will be fine because label will never have text '0'
+        		    newDict[curTag.text] = children[0].text
+        		else:
+        		    newDict[curTag.text] += children[0].text
+        newJSON = json.dumps(newDict)
+        loadedJSON = json.loads(newJSON)
+
+        jsonForm = os.path.join(BASE_DIR,'templates')
+        jsonForm = os.path.join(jsonForm,'savedForm.json')
+        jsonFormObject = open(jsonForm,"w+")
+        json.dump(loadedJSON, jsonFormObject)
+        jsonFormObject.close()
+
+
         return redirect('/response/')
 
     return render(request,'form.html')    
