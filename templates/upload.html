@@ -9,9 +9,7 @@
 <h1>OPT to form converter</h1>
 </div>
 
-{% if error %}
-{{error | safe}}
-{% endif %}
+
 
 <div class="container">
 	<form  method="post" enctype="multipart/form-data">
@@ -21,6 +19,8 @@
 	</form>
 </div>
 <hr>
-
+{% if data %}
+{{data | safe}}
+{% endif %}
 </div>
 {% endblock %}

@@ -2,11 +2,6 @@
 
 
 
-JSON and opt are saved in media
-html saved in templates
-
-
-
 BEFORE RUNNING
 1. Install pip requirements
 2. Install xsel for copy paste
