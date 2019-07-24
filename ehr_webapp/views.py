@@ -8,104 +8,114 @@ from bs4 import BeautifulSoup
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #path of uploaded file
-path = "a"
-savedFormPath = "a"
+path = ""
+
+#path of file to be validated
+vpath = ""
+savedFormPath = ""
 data = ""
 webdriverPath = os.path.join(BASE_DIR,'chromedriver')
 
 def home(request):
-	return render(request, 'home.html')
+    return render(request, 'home.html')
 
 
 def py_upload(request):
-
     if request.method == 'POST':
         uploaded_file = request.FILES.get('document',False)
-        if(uploaded_file): #if file is selected
-            fs = FileSystemStorage()
-            name = fs.save(uploaded_file.name, uploaded_file)
-            global path
-            path = fs.path(name)
-            #debug print("THE PATH ",path)
+        if(uploaded_file): #if file selected and is .opt
+            if(not str(uploaded_file).endswith('.opt')):
+                error = """
+                <div class="alert alert-danger" role="alert">
+                Please select .opt file
+                </div>"""
+                return render(request, 'upload.html',{'error':error})
 
-            global webdriverPath
-            driver = webdriver.Chrome(executable_path = webdriverPath)
-            driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
+            else:
+                ##OPT TO FILE START##
+                fs = FileSystemStorage()
+                name = fs.save(uploaded_file.name, uploaded_file)
+                global path
+                path = fs.path(name)
+                #debug print("THE PATH ",path)
 
-            fileinput = driver.find_element_by_id("validatedCustomFile")
-            #get path of opt from system
-            #global path
-            fileinput.send_keys(path)
+                global webdriverPath
+                driver = webdriver.Chrome(executable_path = webdriverPath)
+                driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
 
-            submitbutton = driver.find_element_by_name("doit")
-            submitbutton.click()
-            element = driver.find_element_by_xpath("/html/body/main/section/div/section/div")
-            source_code = element.get_attribute("outerHTML")
-            driver.quit()
+                fileinput = driver.find_element_by_id("validatedCustomFile")
+                #get path of opt from system
+                #global path
+                fileinput.send_keys(path)
 
-            #source code with archetype slot errors. Remove this and send new source code
-            soup = BeautifulSoup(source_code, 'html.parser')
-            #change heading
-            headingElement = soup.find_all('h2')
-            if( len(headingElement) == 1 ):
-                headingElement[0].decompose()
+                submitbutton = driver.find_element_by_name("doit")
+                submitbutton.click()
+                element = driver.find_element_by_xpath("/html/body/main/section/div/section/div")
+                source_code = element.get_attribute("outerHTML")
+                driver.quit()
+
+                #source code with archetype slot errors. Remove this and send new source code
+                soup = BeautifulSoup(source_code, 'html.parser')
+                #change heading
+                headingElement = soup.find_all('h2')
+                if( len(headingElement) == 1 ):
+                    headingElement[0].decompose()
 
 
-            #Remove archetype slot
-            labelElements = soup.find_all('label')
-            for label in labelElements:
-                if "ARCHETYPE_SLOT" in label.text:
-                    label.decompose()
-                if (label.text=="Event Series" or label.text=="Any event" or label.text=="Tree" or label.text=="List" or label.text=="structure" or label.text=="history"):  #extra stuff to be removed from form
-                    label.decompose()
+                #Remove archetype slot
+                labelElements = soup.find_all('label')
+                for label in labelElements:
+                    if "ARCHETYPE_SLOT" in label.text:
+                        label.decompose()
+                    if (label.text=="Event Series" or label.text=="Any event" or label.text=="Tree" or label.text=="List" or label.text=="structure" or label.text=="history"):  #extra stuff to be removed from form
+                        label.decompose()
 
-            # making the observations bold
-            divs = soup.find_all('div', {'class':"OBSERVATION"})
-            for div in divs:
-            	temp = div.label
-            	new_tag = soup.new_tag('b')
-            	strs = temp.text
-            	temp.clear()
-            	temp.insert(1, new_tag)
-            	temp.b.append(strs)
-		
-            global data
-            data = str(soup)
+                # making the observations bold
+                divs = soup.find_all('div', {'class':"OBSERVATION"})
+                for div in divs:
+                    temp = div.label
+                    new_tag = soup.new_tag('b')
+                    strs = temp.text
+                    temp.clear()
+                    temp.insert(1, new_tag)
+                    temp.b.append(strs)
+            
+                global data
+                data = str(soup)
 
-            #delete file from django(local)
-            fs.delete(name)
+                #delete file from django(local)
+                fs.delete(name)
 
-            ##create new html file
-            newfilepath = os.path.join(BASE_DIR,'templates')
-            newfilepath = os.path.join(newfilepath,'form.html')
-            newfileobject = open(newfilepath,"w+")
+                ##create new html file
+                newfilepath = os.path.join(BASE_DIR,'templates')
+                newfilepath = os.path.join(newfilepath,'form.html')
+                newfileobject = open(newfilepath,"w+")
 
-            #add button code to html
-            htmlheadString ="""<!DOCTYPE html>
-            <html>
-                <head>
-                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-                    <title>Form</title>
-                </head>
-                <body>
-            <form action="" method="post">
-                {% csrf_token %}
-            """
+                #add button code to html
+                htmlheadString ="""<!DOCTYPE html>
+                <html>
+                    <head>
+                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                        <title>Form</title>
+                    </head>
+                    <body>
+                <form action="" method="post">
+                    {% csrf_token %}
+                """
 
-            buttonString = """<div class="container">
-            <input type="submit" name="Submit" value="Submit" />
-            </div>
-            </form>
-            </html>
-            """
+                buttonString = """<div class="container">
+                <input type="submit" name="Submit" value="Submit" />
+                </div>
+                </form>
+                </html>
+                """
 
-            data = htmlheadString + data + "\n" + buttonString
-            newfileobject.write(data)
-            newfileobject.close()
+                data = htmlheadString + data + "\n" + buttonString
+                newfileobject.write(data)
+                newfileobject.close()
 
-            return redirect ('/form/')
-            ##
-            ##
+                return redirect ('/form/')
+                ##OPT TO FILE END##               
 
     return render(request,'upload.html')
 
@@ -169,66 +179,145 @@ def py_form(request):
         savedFormObject.close()
         #debug print("SECOND PATH ", savedForm)
 
+        # converting the saved html to json
+        import json
+        newDict = {}
+
+        for key in rules:
+            #finding input tags
+            flag = 1
+            ip = soup.find('input', {'name':key})
+            try:
+                curTag = ip.previous_element
+            except AttributeError:
+                flag = 0
+                pass
+            while(flag==1 and curTag.name!='label'):
+                curTag = curTag.previous_element
+            if(flag == 1):
+                newDict[curTag.text] = rules[key]
+
+            # finding select tags
+            flag = 1
+            sl = soup.find('select', {'name':key})
+            try:
+                curTag = sl.previous_element
+            except AttributeError:
+                flag=0
+                pass
+            while(flag==1 and curTag.name!='label'):
+                curTag = curTag.previous_element
+            if(flag==1):
+                children = sl.findChildren('option', {'value':rules[key]}) # value is given id and not the actual option
+                if(curTag.text not in newDict): # it will be fine because label will never have text '0'
+                    newDict[curTag.text] = children[0].text
+                else:
+                    newDict[curTag.text] += children[0].text
+        newJSON = json.dumps(newDict)
+        loadedJSON = json.loads(newJSON)
+
+        jsonForm = os.path.join(BASE_DIR,'media')
+        jsonForm = os.path.join(jsonForm,'savedForm.json')
+        jsonFormObject = open(jsonForm,"w+")
+        json.dump(loadedJSON, jsonFormObject)
+        jsonFormObject.close()
+
+
         return redirect('/response/')
 
     return render(request,'form.html')    
 
 def py_response(request):
     if request.method == 'POST':
-        global webdriverPath
-        driver = webdriver.Chrome(executable_path = webdriverPath)
-        driver.get("https://server001.cloudehrserver.com/cot/opt/xml_instance_validator")
-
-        fileinput = driver.find_element_by_id("validatedCustomFile")
-        #get path of opt from system
-        #global path
-        fileinput.send_keys(savedFormPath)
-        submitbutton = driver.find_element_by_name("doit")
-        submitbutton.click()
-        element = driver.find_element_by_xpath("/html/body/main/section[2]/div")
-        source_code = element.get_attribute("outerHTML")
-        driver.quit()
-        #remove heart element
-        soup = BeautifulSoup(source_code,'html.parser')
-        heartElement = soup.find("svg",{'class':"heart"})
-        if heartElement:
-            heartElement.decompose()
-        resultTag  = soup.find("h2")
-        if "is valid" in resultTag.text:
-            resultTag.string.replace_with("Document instance is valid!")
-        htmlheadString ="""<!DOCTYPE html>
-            <html>
-                <head>
-                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-                    <title>Validator Response</title>
-                </head>
-                <body>
-            <form action="" method="post">
-                {% csrf_token %}
-            """
-
-        buttonString = """<div class="container">
-            <form action="" method="post">
-                    {% csrf_token %}
-                    <input type="submit" name="valid" value="Upload Again" />
-                    
-                </form>
-            </div>
-        """
-        source_code = htmlheadString + "\n"+ str(soup) + "\n"+ buttonString
-        newfilepath = os.path.join(BASE_DIR,'templates')
-        newfilepath = os.path.join(newfilepath,'valid.html')
-        newfileobject = open(newfilepath,"w+")
-        newfileobject.write(source_code)
-        newfileobject.close()
-        return redirect('/valid/')
-
-
+        if('rhome' in request.POST):
+            return redirect('/')
+        if('rvalidate' in request.POST):    
+            print(request.POST.get('value'))
+            validate(filepath= savedFormPath)
+            return redirect('/validator_response/')
     return render(request,'response.html')
 
-def py_valid(request):
+
+def py_validate(request):
     if request.method == 'POST':
-        return redirect('/upload/')
-    return render(request,'valid.html') 
+        uploaded_file = request.FILES.get('document',False)
+        if(uploaded_file): #if file is selected and is XML or HTML
+            if(str(uploaded_file).endswith('.xml') or str(uploaded_file).endswith('.html')):
+                fs = FileSystemStorage()
+                savedFile = fs.save(uploaded_file.name, uploaded_file)
+                global vpath
+                vpath = fs.path(savedFile)
+                validate(filepath = vpath)
+                fs.delete(savedFile)
+                return redirect('/validator_response/')
+            else:
+                error = """
+                <div class="alert alert-danger" role="alert">
+                Please select .xml or .html file
+                </div>"""
+                return render(request, 'validate.html',{'error':error})
+
+    return render(request,'validate.html')        
+
+
+def py_validator_response(request):
+    if request.method == 'POST':
+        ##give choice to go to home or 
+        return redirect('/')
+    return render(request,'validator_response.html') 
+
+
+
+##HELPER FUNCTIONS##
+def validate(filepath):
+    global webdriverPath
+    driver = webdriver.Chrome(executable_path = webdriverPath)
+    driver.get("https://server001.cloudehrserver.com/cot/opt/xml_instance_validator")
+
+    fileinput = driver.find_element_by_id("validatedCustomFile")
+    #get path of opt from system
+    #global path
+    fileinput.send_keys(filepath)
+    submitbutton = driver.find_element_by_name("doit")
+    submitbutton.click()
+    element = driver.find_element_by_xpath("/html/body/main/section[2]/div")
+    source_code = element.get_attribute("outerHTML")
+    driver.quit()
+    #remove heart element
+    soup = BeautifulSoup(source_code,'html.parser')
+    heartElement = soup.find("svg",{'class':"heart"})
+    if heartElement:
+        heartElement.decompose()
+    resultTag  = soup.find("h2")
+    if "is valid" in resultTag.text:
+        resultTag.string.replace_with("Document instance is valid!")
+    htmlheadString ="""<!DOCTYPE html>
+        <html>
+            <head>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                <title>Validator Response</title>
+            </head>
+            <body>
+        <form action="" method="post">
+            {% csrf_token %}
+        """
+
+    buttonString = """<div class="container">
+        <form action="" method="post">
+                {% csrf_token %}
+                <input type="submit" name="valid" value="Home" />
+                
+            </form>
+        </div>
+    """
+    source_code = htmlheadString + "\n"+ str(soup) + "\n"+ buttonString
+    newfilepath = os.path.join(BASE_DIR,'templates')
+    newfilepath = os.path.join(newfilepath,'validator_response.html')
+    newfileobject = open(newfilepath,"w+")
+    newfileobject.write(source_code)
+    newfileobject.close()
+
+
+
 
 
