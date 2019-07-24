@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+        <html>
+            <head>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                <title>Validator Response</title>
+            </head>
+            <body>
+        <form action="" method="post">
+            {% csrf_token %}
+        
+<div class="container">
+<h2>XML validation errors</h2>
+<div class="row"> <div class="col-4"> <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action active" data-toggle="list" href="#list-0" id="list-menu-0" role="tab">ERROR cvc-elt.1</a> </div> </div> <div class="col-8"> <div class="tab-content" id="nav-tabContent"> <div aria-labelledby="list-menu-0" class="tab-pane fade show active" id="list-0" role="tabpanel"> Cannot find the declaration of element 'div'.
+line #: 1
+&gt;&gt;&gt; <div class="container"> <hr/> <a href="https://wiki.xmldation.com/Support/Validator/cvc-elt-1" target="_blank">More info</a> </div> </div> </div></div>
+</div>
+</div>
+<div class="container">
+        <form action="" method="post">
+                {% csrf_token %}
+                <input type="submit" name="valid" value="Home" />
+                
+            </form>
+        </div>
+    

@@ -25,7 +25,8 @@ urlpatterns = [
     path('upload/', views.py_upload, name= 'upload'),
     path('form/', views.py_form, name= 'form'),
     path('response/', views.py_response, name= 'response'),
-    path('valid/',views.py_valid, name = 'valid')
+    path('validator_response/',views.py_validator_response, name = 'valid'),
+    path('validate/', views.py_validate, name= 'validate')
 ]
 
 
