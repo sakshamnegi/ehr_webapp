@@ -4,6 +4,7 @@ import os
 from selenium import webdriver
 import clipboard    #for pasting copied instance
 from bs4 import BeautifulSoup
+from django.conf import settings
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,8 +37,9 @@ def py_upload(request):
                 fs = FileSystemStorage()
                 name = fs.save(uploaded_file.name, uploaded_file)
                 global path
-                path = fs.path(name)
-                #debug print("THE PATH ",path)
+                renamedFileName , path = TemplateIDRename(name)
+
+                #path = fs.path(name)
 
                 global webdriverPath
                 driver = webdriver.Chrome(executable_path = webdriverPath)
@@ -83,8 +85,10 @@ def py_upload(request):
                 global data
                 data = str(soup)
 
-                #delete file from django(local)
+                #delete original uploaded file from django(local)
                 fs.delete(name)
+                #delete file with modified template id
+                fs.delete(renamedFileName) 
 
                 ##create new html file
                 newfilepath = os.path.join(BASE_DIR,'templates')
@@ -233,7 +237,7 @@ def py_response(request):
             return redirect('/')
         if('rvalidate' in request.POST):    
             print(request.POST.get('value'))
-            validate(filepath= savedFormPath)
+            Validate(filepath= savedFormPath)
             return redirect('/validator_response/')
     return render(request,'response.html')
 
@@ -247,7 +251,7 @@ def py_validate(request):
                 savedFile = fs.save(uploaded_file.name, uploaded_file)
                 global vpath
                 vpath = fs.path(savedFile)
-                validate(filepath = vpath)
+                Validate(filepath = vpath)
                 fs.delete(savedFile)
                 return redirect('/validator_response/')
             else:
@@ -269,7 +273,7 @@ def py_validator_response(request):
 
 
 ##HELPER FUNCTIONS##
-def validate(filepath):
+def Validate(filepath):
     global webdriverPath
     driver = webdriver.Chrome(executable_path = webdriverPath)
     driver.get("https://server001.cloudehrserver.com/cot/opt/xml_instance_validator")
@@ -318,6 +322,30 @@ def validate(filepath):
     newfileobject.close()
 
 
-
-
+def TemplateIDRename(savedFile):
+    ##takes in relative of file inside /media/ and returns new file's name and full path
+    filename = str(savedFile).split('.')[0]
+    filepath = os.path.join(settings.MEDIA_ROOT, savedFile)
+    fileObject = open(filepath, "r+")
+    content = fileObject.read()
+    for symbol in filename:
+        if (symbol!=' ' and symbol.isalnum()==False):
+            filename = filename.replace(symbol,'')
+    filename = filename.replace(" ","_")
+    filename = filename+'.en'+'.v1' #TODO  +str(versionNumber)
+    filename = filename.lower()
+    soup = BeautifulSoup(content,'html.parser')
+    idElements = soup.find_all('template_id')
+    for element in idElements:
+        #element.string.replace_with(filename+'.en'+'.v1')
+        valueElement = element.findChild() #returns first child of element
+        valueElement.string.replace_with(filename)
+    newContent = str(soup)
+    newfilepath = os.path.join(settings.MEDIA_ROOT,filename+".opt")
+    fileObject.close()
+    fileObject = open(newfilepath,'w+')
+    fileObject.write(newContent) 
+    fileObject.close
+    filename += ".opt"
+    return filename, newfilepath
 
