@@ -324,17 +324,19 @@ def Validate(filepath):
 
 def TemplateIDRename(savedFile):
     ##takes in relative of file inside /media/ and returns new file's name and full path
-    filename = str(savedFile).split('.')[0]
     filepath = os.path.join(settings.MEDIA_ROOT, savedFile)
     fileObject = open(filepath, "r+")
     content = fileObject.read()
+    soup = BeautifulSoup(content,'html.parser')
+    conceptElement = soup.find('concept')
+    filename = conceptElement.text
     for symbol in filename:
         if (symbol!=' ' and symbol.isalnum()==False):
             filename = filename.replace(symbol,'')
     filename = filename.replace(" ","_")
     filename = filename+'.en'+'.v1' #TODO  +str(versionNumber)
     filename = filename.lower()
-    soup = BeautifulSoup(content,'html.parser')
+    
     idElements = soup.find_all('template_id')
     for element in idElements:
         #element.string.replace_with(filename+'.en'+'.v1')
