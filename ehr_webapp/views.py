@@ -185,39 +185,42 @@ def py_form(request):
 
         # converting the saved html to json
         import json
-        newDict = {}
+        def findDiv(div):
+        	divs = div.findChildren('div', recursive = False)
+        	labels = div.findChildren('label', recursive = False)
+        	if (len(labels)!=0):
+        	        label = labels[0].text
+        	else:
+        	    label = "no Label"
+        	if(len(divs)==0):
+        		ans = []
+        		inputs = div.findChildren('input')
+        		if(len(inputs)!=0):
+        			for ip in inputs:
+        				ans.append(rules[ip['name']])
+        		selects = div.findChildren('select')
+        		if(len(selects)!=0):
+        			for select in selects:
+        				ans.append(rules[select['name']])
+        		if(len(labels)!=0):
+        			finalAns = {}
+        			finalAns[label] = ans
+        		else:
+        		    finalAns = ans
+        		return finalAns
 
-        for key in rules:
-            #finding input tags
-            flag = 1
-            ip = soup.find('input', {'name':key})
-            try:
-                curTag = ip.previous_element
-            except AttributeError:
-                flag = 0
-                pass
-            while(flag==1 and curTag.name!='label'):
-                curTag = curTag.previous_element
-            if(flag == 1):
-                newDict[curTag.text] = rules[key]
+        	else: # if it contains sub divisions
+        		ans = {}
+        		for div in divs:
+        			if(label not in ans):
+        				ans[label] = [findDiv(div)]
+        			else:
+        				ans[label].append(findDiv(div))
+        		return ans
 
-            # finding select tags
-            flag = 1
-            sl = soup.find('select', {'name':key})
-            try:
-                curTag = sl.previous_element
-            except AttributeError:
-                flag=0
-                pass
-            while(flag==1 and curTag.name!='label'):
-                curTag = curTag.previous_element
-            if(flag==1):
-                children = sl.findChildren('option', {'value':rules[key]}) # value is given id and not the actual option
-                if(curTag.text not in newDict): # it will be fine because label will never have text '0'
-                    newDict[curTag.text] = children[0].text
-                else:
-                    newDict[curTag.text] += children[0].text
-        newJSON = json.dumps(newDict)
+        div = soup.find_all('div', {'class':"COMPOSITION"})  # Set the division from which you want to store the file
+        Ans = findDiv(div[0])
+        newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
 
         jsonForm = os.path.join(BASE_DIR,'media')
