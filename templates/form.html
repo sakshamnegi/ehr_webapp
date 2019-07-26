@@ -14,15 +14,9 @@
 <link href="/static/style.css" rel="stylesheet"/><!-- boostrap style -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
 <div class="container">
-<h1>Vital Signs Summary</h1>
-<div class="COMPOSITION">
-<label>Health summary</label>
-<div class="EVENT_CONTEXT">
-</div>
-<div class="SECTION">
-<label>Vital signs</label>
+<h1>Genomics example template</h1>
 <div class="OBSERVATION">
-<label><b>Respirations</b></label>
+<label><b>Laboratory test result</b></label>
 <div class="HISTORY">
 
 <div class="EVENT">
@@ -30,368 +24,706 @@
 <div class="ITEM_TREE">
 
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Rate</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude" type="text"/>
+<label class="col-md-2 col-form-label">Test name</label>
+<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value" type="text"/>
 </div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/units">
+<div class="CLUSTER">
+
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Overall test status</label>
+<select class="DV_CODED_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code">
 <option value=""></option>
-<option value="/min">/min</option>
+<option value="at0107">Registered</option>
+<option value="at0037">Partial</option>
+<option value="at0120">Preliminary</option>
+<option value="at0038">Final</option>
+<option value="at0040">Amended</option>
+<option value="at0115">Corrected</option>
+<option value="at0119">Appended</option>
+<option value="at0074">Cancelled</option>
+<option value="at0116">Entered in error</option>
+</select>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Overall test status timestamp</label>
+<input class="DV_DATE_TIME form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0075]/value" type="datetime-local"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Diagnostic service category</label>
+<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0077]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Clinical information provided</label>
+<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0100]/value" type="text"/>
+</div>
+<div class="CLUSTER">
+<label>Genetic variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Tissue specimen identifier</label>
+<label>issuer
+                    <input class="small DV_IDENTIFIER form-control" name="/items[at0070]/value/issuer" type="text"/>
+</label>
+<label>assigner
+                    <input class="small DV_IDENTIFIER form-control" name="/items[at0070]/value/assigner" type="text"/>
+</label>
+<label>id
+                    <input class="small DV_IDENTIFIER form-control" name="/items[at0070]/value/id" type="text"/>
+</label>
+<label>type
+                    <input class="small DV_IDENTIFIER form-control" name="/items[at0070]/value/type" type="text"/>
+</label>
+</div>
+<div class="CLUSTER">
+<label>Knowledge base</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Namespace</label>
+<input class="DV_TEXT form-control" name="/items[at0001]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Version</label>
+<input class="DV_TEXT form-control" name="/items[at0002]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">URL</label>
+</div>
+</div>
+<div class="CLUSTER">
+<label>Reference sequence</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Source name</label>
+<input class="DV_TEXT form-control" name="/items[at0019]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Accession number</label>
+<input class="DV_TEXT form-control" name="/items[at0020]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Version number</label>
+<input class="DV_TEXT form-control" name="/items[at0021]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">URL</label>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Chromosome label</label>
+<select class="DV_CODED_TEXT form-control" name="/items[at0023]/value/defining_code">
+<option value=""></option>
+<option value="at0024">Chromosome 1</option>
+<option value="at0025">Chromosome 2</option>
+<option value="at0026">Chromosome 3</option>
+<option value="at0027">Chromosome 4</option>
+<option value="at0028">Chromosome 5</option>
+<option value="at0029">Chromosome 6</option>
+<option value="at0030">Chromosome 7</option>
+<option value="at0031">Chromosome 8</option>
+<option value="at0032">Chromosome 9</option>
+<option value="at0033">Chromosome 10</option>
+<option value="at0034">Chromosome 11</option>
+<option value="at0035">Chromosome 12</option>
+<option value="at0036">Chromosome 13</option>
+<option value="at0037">Chromosome 14</option>
+<option value="at0038">Chromosome 15</option>
+<option value="at0039">Chromosome 16</option>
+<option value="at0040">Chromosome 17</option>
+<option value="at0041">Chromosome 18</option>
+<option value="at0042">Chromosome 19</option>
+<option value="at0043">Chromosome 20</option>
+<option value="at0044">Chromosome 21</option>
+<option value="at0045">Chromosome 22</option>
+<option value="at0046">Chromosome X</option>
+<option value="at0047">Chromosome Y</option>
+</select>
+</div>
+</div>
+<div class="CLUSTER">
+<label>Variant identifier</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Source name</label>
+<input class="DV_TEXT form-control" name="/items[at0003]/items[at0004]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Identification</label>
+<input class="DV_TEXT form-control" name="/items[at0003]/items[at0005]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Version</label>
+<input class="DV_TEXT form-control" name="/items[at0003]/items[at0006]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">URL</label>
+</div>
+</div>
+<div class="CLUSTER">
+<label>Conversion variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Start converted position</label>
+<input class="DV_COUNT form-control" name="/items[at0003]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">End converted position</label>
+<input class="DV_COUNT form-control" name="/items[at0004]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Replacing sequence start position</label>
+<input class="DV_COUNT form-control" name="/items[at0009]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Replacing sequence end position</label>
+<input class="DV_COUNT form-control" name="/items[at0010]/value" type="number"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Copy number variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Start position</label>
+<input class="DV_COUNT form-control" name="/items[at0001]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">End position</label>
+<input class="DV_COUNT form-control" name="/items[at0002]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Total copy number</label>
+<input class="DV_COUNT form-control" name="/items[at0003]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Copy number change type</label>
+<select class="DV_CODED_TEXT form-control" name="/items[at0005]/value/defining_code">
+<option value=""></option>
+<option value="at0006">Gain</option>
+<option value="at0007">Loss</option>
+</select>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Deletion variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Start position</label>
+<input class="DV_COUNT form-control" name="/items[at0001]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">End position</label>
+<input class="DV_COUNT form-control" name="/items[at0005]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Deleted nucleotide(s)</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/value" type="text"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Duplication variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Start position</label>
+<input class="DV_COUNT form-control" name="/items[at0001]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">End position</label>
+<input class="DV_COUNT form-control" name="/items[at0003]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Duplicated nucletide(s)</label>
+<input class="DV_TEXT form-control" name="/items[at0005]/value" type="text"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Indel variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Start position</label>
+<input class="DV_COUNT form-control" name="/items[at0001]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">End position</label>
+<input class="DV_COUNT form-control" name="/items[at0003]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Deleted nucleotide(s)</label>
+<input class="DV_TEXT form-control" name="/items[at0005]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Inserted nucleotide(s)</label>
+<input class="DV_TEXT form-control" name="/items[at0007]/value" type="text"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Insertion variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Start position</label>
+<input class="DV_COUNT form-control" name="/items[at0001]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">End position</label>
+<input class="DV_COUNT form-control" name="/items[at0003]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Inserted nucleotide(s)</label>
+<input class="DV_TEXT form-control" name="/items[at0006]/value" type="text"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Inversion variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Start position</label>
+<input class="DV_COUNT form-control" name="/items[at0001]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">End position</label>
+<input class="DV_COUNT form-control" name="/items[at0004]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Inverted sequence</label>
+<input class="DV_TEXT form-control" name="/items[at0006]/value" type="text"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Repeated sequence variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Start position</label>
+<input class="DV_COUNT form-control" name="/items[at0001]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">End position</label>
+<input class="DV_COUNT form-control" name="/items[at0003]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Repeated sequence</label>
+<input class="DV_TEXT form-control" name="/items[at0005]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Copy number</label>
+<input class="DV_COUNT form-control" name="/items[at0007]/value" type="number"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Substitution variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Position substituted</label>
+<input class="DV_COUNT form-control" name="/items[at0001]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Reference nucleotide</label>
+<input class="DV_TEXT form-control" name="/items[at0003]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">New nucleotide</label>
+<input class="DV_TEXT form-control" name="/items[at0005]/value" type="text"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+</div>
+<div class="CLUSTER">
+<label>Translocation variant</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Breakpoint position 1</label>
+<input class="DV_COUNT form-control" name="/items[at0003]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Strand 1</label>
+<input class="DV_COUNT form-control" name="/items[at0005]/value" type="number"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Breakpoint position 2</label>
+<input class="DV_COUNT form-control" name="/items[at0004]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Strand 2</label>
+<input class="DV_COUNT form-control" name="/items[at0006]/value" type="number"/>
+</div>
+<div class="CLUSTER">
+
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">HGVS term</label>
+<input class="DV_TEXT form-control" name="/items[at0009]/value" type="text"/>
+</div>
+</div>
+<div class="CLUSTER">
+<label>Transcript</label>
+<div class="CLUSTER">
+<label>Reference sequence</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Source name</label>
+<input class="DV_TEXT form-control" name="/items[at0019]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Accession number</label>
+<input class="DV_TEXT form-control" name="/items[at0020]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Version number</label>
+<input class="DV_TEXT form-control" name="/items[at0021]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">URL</label>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Chromosome label</label>
+<select class="DV_CODED_TEXT form-control" name="/items[at0023]/value/defining_code">
+<option value=""></option>
+<option value="at0024">Chromosome 1</option>
+<option value="at0025">Chromosome 2</option>
+<option value="at0026">Chromosome 3</option>
+<option value="at0027">Chromosome 4</option>
+<option value="at0028">Chromosome 5</option>
+<option value="at0029">Chromosome 6</option>
+<option value="at0030">Chromosome 7</option>
+<option value="at0031">Chromosome 8</option>
+<option value="at0032">Chromosome 9</option>
+<option value="at0033">Chromosome 10</option>
+<option value="at0034">Chromosome 11</option>
+<option value="at0035">Chromosome 12</option>
+<option value="at0036">Chromosome 13</option>
+<option value="at0037">Chromosome 14</option>
+<option value="at0038">Chromosome 15</option>
+<option value="at0039">Chromosome 16</option>
+<option value="at0040">Chromosome 17</option>
+<option value="at0041">Chromosome 18</option>
+<option value="at0042">Chromosome 19</option>
+<option value="at0043">Chromosome 20</option>
+<option value="at0044">Chromosome 21</option>
+<option value="at0045">Chromosome 22</option>
+<option value="at0046">Chromosome X</option>
+<option value="at0047">Chromosome Y</option>
 </select>
 </div>
 </div>
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Rhythm</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value/defining_code">
+<label class="col-md-2 col-form-label">DNARegionName</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/items[at0010]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">DNA change</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/items[at0011]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Amino Acid Change</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/items[at0012]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Amino Acid Change Type</label>
+<select class="DV_CODED_TEXT form-control" name="/items[at0008]/items[at0013]/value/defining_code">
 <option value=""></option>
-<option value="at0006">Regular</option>
-<option value="at0007">Irregular</option>
+<option value="at0085">Wild Type</option>
+<option value="at0086">Deletion</option>
+<option value="at0087">Duplication</option>
+<option value="at0088">Frameshift</option>
+<option value="at0089">Initiating Methionine</option>
+<option value="at0090">Insertion</option>
+<option value="at0091">Insertion and Deletion</option>
+<option value="at0092">Missense</option>
+<option value="at0093">Nonsense</option>
+<option value="at0094">Silent</option>
+<option value="at0095">Stop Codon Mutation</option>
+</select>
+</div>
+<div class="CLUSTER">
+<label>Predicted impact</label>
+<div class="CLUSTER">
+<label>Knowledge base</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Namespace</label>
+<input class="DV_TEXT form-control" name="/items[at0001]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Version</label>
+<input class="DV_TEXT form-control" name="/items[at0002]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">URL</label>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Score</label>
+<div class="col-md-5">
+<input class="DV_QUANTITY form-control" name="/items[at0008]/items[at0015]/items[at0017]/value/magnitude" type="text"/>
+</div>
+<div class="col-md-5">
+<select class="DV_QUANTITY form-control" name="/items[at0008]/items[at0015]/items[at0017]/value/units">
+<option value=""></option>
+<option value="1">1</option>
+</select>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Qualitative prediction</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/items[at0015]/items[at0018]/value" type="text"/>
+</div>
+</div>
+<div class="CLUSTER">
+<label>Reported impact</label>
+<div class="CLUSTER">
+<label>Citation</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Description</label>
+<input class="DV_TEXT form-control" name="/items[at0004]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Citation</label>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">URI to original data</label>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Comment</label>
+<input class="DV_TEXT form-control" name="/items[at0003]/value" type="text"/>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Impact</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/items[at0052]/items[at0054]/value" type="text"/>
+</div>
+</div>
+<div class="CLUSTER">
+<label>Gene</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Gene symbol</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/items[at0019]/items[at0020]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Full name</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/items[at0019]/items[at0021]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Copy number overlap</label>
+<label>numerator
+                        <input class="small DV_PROPORTION form-control" name="/items[at0008]/items[at0019]/items[at0056]/value/numerator" type="number"/>
+</label>
+<label>denominator
+                        <input class="small DV_PROPORTION form-control" name="/items[at0008]/items[at0019]/items[at0056]/value/denominator" type="number"/>
+</label>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Part of fusion</label>
+<select class="DV_CODED_TEXT form-control" name="/items[at0008]/items[at0019]/items[at0057]/value/defining_code">
+<option value=""></option>
+<option value="at0096">First</option>
+<option value="at0097">Second</option>
+</select>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">ACMG classification</label>
+<select class="DV_CODED_TEXT form-control" name="/items[at0008]/items[at0058]/value/defining_code">
+<option value=""></option>
+<option value="at0071">Pathogenic</option>
+<option value="at0072">Likely pathogenic</option>
+<option value="at0073">Uncertain significance</option>
+<option value="at0074">Likely benign</option>
+<option value="at0075">Benign</option>
 </select>
 </div>
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Depth</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0016]/value/defining_code">
+<label class="col-md-2 col-form-label">Fusion exon</label>
+<input class="DV_TEXT form-control" name="/items[at0008]/items[at0059]/value" type="text"/>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Best transcript candidate</label>
+<input class="DV_TEXT form-control" name="/items[at0023]/value" type="text"/>
+</div>
+<div class="CLUSTER">
+<label>Conservation</label>
+<div class="CLUSTER">
+<label>Knowledge base</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Namespace</label>
+<input class="DV_TEXT form-control" name="/items[at0001]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Version</label>
+<input class="DV_TEXT form-control" name="/items[at0002]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">URL</label>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Score</label>
+<div class="col-md-5">
+<input class="DV_QUANTITY form-control" name="/items[at0024]/items[at0026]/value/magnitude" type="text"/>
+</div>
+<div class="col-md-5">
+<select class="DV_QUANTITY form-control" name="/items[at0024]/items[at0026]/value/units">
 <option value=""></option>
-<option value="at0017">Normal</option>
-<option value="at0018">Shallow</option>
-<option value="at0019">Deep</option>
-<option value="at0025">Variable</option>
+<option value="1">1</option>
 </select>
+</div>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Read depth</label>
+<input class="DV_COUNT form-control" name="/items[at0060]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Allele depth</label>
+<input class="DV_COUNT form-control" name="/items[at0028]/value" type="number"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Allele frequency</label>
+<div class="col-md-5">
+<input class="DV_QUANTITY form-control" name="/items[at0047]/value/magnitude" type="text"/>
+</div>
+<div class="col-md-5">
+<select class="DV_QUANTITY form-control" name="/items[at0047]/value/units">
+<option value=""></option>
+<option value="1">1</option>
+</select>
+</div>
+</div>
+<div class="CLUSTER">
+<label>Population allele frequency details</label>
+<div class="CLUSTER">
+<label>Knowledge base</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Namespace</label>
+<input class="DV_TEXT form-control" name="/items[at0001]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Version</label>
+<input class="DV_TEXT form-control" name="/items[at0002]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">URL</label>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Population allele frequency</label>
+<div class="col-md-5">
+<input class="DV_QUANTITY form-control" name="/items[at0029]/items[at0031]/value/magnitude" type="text"/>
+</div>
+<div class="col-md-5">
+<select class="DV_QUANTITY form-control" name="/items[at0029]/items[at0031]/value/units">
+<option value=""></option>
+<option value="1">1</option>
+</select>
+</div>
+</div>
+</div>
+<div class="CLUSTER">
+<label>VCF Quality Filter</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Filter name</label>
+<input class="DV_TEXT form-control" name="/items[at0061]/items[at0062]/value" type="text"/>
 </div>
 <div class="ELEMENT form-group row">
 <label class="col-md-2 col-form-label">Description</label>
-<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0024]/value" type="text"/>
-</div>
-</div>
-<div class="ITEM_TREE">
-
-<div class="CLUSTER">
-
+<input class="DV_TEXT form-control" name="/items[at0061]/items[at0063]/value" type="text"/>
 </div>
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Confounding factors</label>
-<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/state[at0022]/items[at0056]/value" type="text"/>
-</div>
-<div class="CLUSTER">
-
+<label class="col-md-2 col-form-label">Filter passed</label>
+<input class="DV_BOOLEAN" name="/items[at0061]/items[at0064]/value" type="checkbox"/>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="OBSERVATION">
-<label><b>Pulse/Heart beat</b></label>
-<div class="HISTORY">
-
-<div class="EVENT">
-
-<div class="ITEM_TREE">
-
 <div class="ELEMENT form-group row">
-<select class="DV_CODED_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/name/defining_code">
-<option value=""></option>
-<option value="at1026">Pulse Rate</option>
-<option value="at1027">Heart Rate</option>
-</select>
+<label class="col-md-2 col-form-label">Strand bias ratio</label>
 <div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude" type="text"/>
+<input class="DV_QUANTITY form-control" name="/items[at0067]/value/magnitude" type="text"/>
 </div>
 <div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units">
+<select class="DV_QUANTITY form-control" name="/items[at0067]/value/units">
 <option value=""></option>
-<option value="/min">/min</option>
+<option value="1">1</option>
 </select>
 </div>
 </div>
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Regular?</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0005]/value/defining_code">
+<label class="col-md-2 col-form-label">Strand bias p-value</label>
+<div class="col-md-5">
+<input class="DV_QUANTITY form-control" name="/items[at0068]/value/magnitude" type="text"/>
+</div>
+<div class="col-md-5">
+<select class="DV_QUANTITY form-control" name="/items[at0068]/value/units">
 <option value=""></option>
-<option value="at0006">Regular</option>
-<option value="at1028">Irregular</option>
+<option value="1">1</option>
+</select>
+</div>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Genotype</label>
+<input class="DV_TEXT form-control" name="/items[at0039]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Allelic State</label>
+<select class="DV_CODED_TEXT form-control" name="/items[at0040]/value/defining_code">
+<option value=""></option>
+<option value="at0076">Heteroplasmic</option>
+<option value="at0077">Homoplasmic</option>
+<option value="at0078">Homozygous</option>
+<option value="at0079">Heterozygous</option>
+<option value="at0080">Hemizygous</option>
 </select>
 </div>
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Irregular type</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at1055]/value/defining_code">
+<label class="col-md-2 col-form-label">Genotype quality</label>
+<input class="DV_TEXT form-control" name="/items[at0041]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Genotype probability</label>
+<input class="DV_TEXT form-control" name="/items[at0069]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Genetic Variant Assessment</label>
+<select class="DV_CODED_TEXT form-control" name="/items[at0050]/value/defining_code">
 <option value=""></option>
-<option value="at0007">Regularly Irregular</option>
-<option value="at0008">Irregularly Irregular</option>
+<option value="at0081">Present</option>
+<option value="at0082">Absent</option>
+<option value="at0083">No call</option>
+<option value="at0084">Indeterminate</option>
 </select>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Character</label>
-<input class="DV_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at1030]/value" type="text"/>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Clinical description</label>
-<input class="DV_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at1022]/value" type="text"/>
-</div>
-<div class="ELEMENT form-group row">
-<select class="DV_CODED_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at1023]/name/defining_code">
-<option value=""></option>
-<option value="at1057">Clinical interpretation</option>
-<option value="at1058">Rhythm</option>
-</select>
-<input class="DV_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at1023]/value" type="text"/>
-</div>
-</div>
-<div class="ITEM_TREE">
-
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Position</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0002]/events[at0003]/state[at0012]/items[at0013]/value/defining_code">
-<option value=""></option>
-<option value="at1003">Standing/upright</option>
-<option value="at1001">Sitting</option>
-<option value="at1002">Reclining</option>
-<option value="at1000">Lying</option>
-</select>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Confounding factors</label>
-<input class="DV_TEXT form-control" name="/data[at0002]/events[at0003]/state[at0012]/items[at1018]/value" type="text"/>
 </div>
 <div class="CLUSTER">
 
 </div>
 </div>
-</div>
-</div>
-<div class="ITEM_TREE">
-
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Method</label>
-<select class="DV_CODED_TEXT form-control" name="/protocol[at0010]/items[at1019]/value/defining_code">
-<option value=""></option>
-<option value="at1032">Palpation</option>
-<option value="at1033">Auscultation</option>
-<option value="at1034">Automatic, non-invasive</option>
-<option value="at1050">Automatic, invasive</option>
-</select>
+<label class="col-md-2 col-form-label">Conclusion</label>
+<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0057]/value" type="text"/>
 </div>
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Body site</label>
-<select class="DV_CODED_TEXT form-control" name="/protocol[at0010]/items[at1037]/value/defining_code">
-<option value=""></option>
-<option value="at1038">Radial Artery - Left</option>
-<option value="at1039">Radial Artery - Right</option>
-<option value="at1040">Heart</option>
-<option value="at1041">Carotid Artery - Left</option>
-<option value="at1042">Carotid Artery - Right</option>
-<option value="at1043">Femoral Artery - Left</option>
-<option value="at1044">Femoral Artery - Right</option>
-<option value="at1049">Brachial artery - Right</option>
-<option value="at1048">Brachial artery - Left</option>
-<option value="at1047">Finger</option>
-<option value="at1054">Toe</option>
-<option value="at1051">Ear lobe</option>
-</select>
+<label class="col-md-2 col-form-label">Test diagnosis</label>
+<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0098]/value" type="text"/>
 </div>
 <div class="CLUSTER">
 
-</div>
-<div class="CLUSTER">
-
-</div>
-</div>
-</div>
-<div class="OBSERVATION">
-<label><b>Blood Pressure</b></label>
-<div class="HISTORY">
-
-<div class="EVENT">
-
-<div class="ITEM_TREE">
-<label>blood pressure</label>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Systolic</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/units">
-<option value=""></option>
-<option value="mm[Hg]">mm[Hg]</option>
-</select>
-</div>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Diastolic</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/units">
-<option value=""></option>
-<option value="mm[Hg]">mm[Hg]</option>
-</select>
-</div>
 </div>
 <div class="ELEMENT form-group row">
 <label class="col-md-2 col-form-label">Comment</label>
-<input class="DV_TEXT form-control" name="/data[at0001]/events[at0006]/data[at0003]/items[at0033]/value" type="text"/>
+<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0101]/value" type="text"/>
 </div>
 </div>
 <div class="ITEM_TREE">
-<label>state structure</label>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Position</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0001]/events[at0006]/state[at0007]/items[at0008]/value/defining_code">
-<option value=""></option>
-<option value="at1000">Standing</option>
-<option value="at1001">Sitting</option>
-<option value="at1002">Reclining</option>
-<option value="at1003">Lying</option>
-<option value="at1014">Lying with tilt to left</option>
-</select>
-</div>
+
 <div class="ELEMENT form-group row">
 <label class="col-md-2 col-form-label">Confounding factors</label>
-<input class="DV_TEXT form-control" name="/data[at0001]/events[at0006]/state[at0007]/items[at1052]/value" type="text"/>
-</div>
-<div class="CLUSTER">
-
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Sleep status</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0001]/events[at0006]/state[at0007]/items[at1043]/value/defining_code">
-<option value=""></option>
-<option value="at1044">Alert &amp; awake</option>
-<option value="at1045">Sleeping</option>
-</select>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Tilt</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0001]/events[at0006]/state[at0007]/items[at1005]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0006]/state[at0007]/items[at1005]/value/units">
-<option value=""></option>
-<option value="deg">deg</option>
-<option value="deg">deg</option>
-</select>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="ITEM_TREE">
-
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Cuff size</label>
-<select class="DV_CODED_TEXT form-control" name="/protocol[at0011]/items[at0013]/value/defining_code">
-<option value=""></option>
-<option value="at0015">Adult Thigh</option>
-<option value="at0016">Large Adult</option>
-<option value="at0017">Adult</option>
-<option value="at1008">Small Adult</option>
-<option value="at1009">Paediatric/Child</option>
-<option value="at1018">Infant</option>
-<option value="at1019">Neonatal</option>
-</select>
-</div>
-<div class="CLUSTER">
-<label>Location</label>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Location of measurement</label>
-<select class="DV_CODED_TEXT form-control" name="/protocol[at0011]/items[at1033]/items[at0014]/value/defining_code">
-<option value=""></option>
-<option value="at0025">Right arm</option>
-<option value="at0026">Left arm</option>
-<option value="at0027">Right thigh</option>
-<option value="at0028">Left thigh</option>
-<option value="at1020">Right wrist</option>
-<option value="at1021">Left wrist</option>
-<option value="at1026">Right ankle</option>
-<option value="at1031">Left ankle</option>
-<option value="at1032">Finger</option>
-<option value="at1051">Toe</option>
-<option value="at1053">Intra-arterial</option>
-</select>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">X - Specific location</label>
-<input class="DV_TEXT form-control" name="/protocol[at0011]/items[at1033]/items[at1034]/value" type="text"/>
-</div>
-</div>
-<div class="CLUSTER">
-
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Method</label>
-<select class="DV_CODED_TEXT form-control" name="/protocol[at0011]/items[at1035]/value/defining_code">
-<option value=""></option>
-<option value="at1036">Auscultation</option>
-<option value="at1037">Palpation</option>
-<option value="at1039">Machine</option>
-<option value="at1040">Invasive</option>
-</select>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Mean arterial pressure formula</label>
-<input class="DV_TEXT form-control" name="/protocol[at0011]/items[at1038]/value" type="text"/>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Systolic pressure formula</label>
-<input class="DV_TEXT form-control" name="/protocol[at0011]/items[at1054]/value" type="text"/>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Diastolic pressure formula</label>
-<input class="DV_TEXT form-control" name="/protocol[at0011]/items[at1055]/value" type="text"/>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Diastolic endpoint</label>
-<select class="DV_CODED_TEXT form-control" name="/protocol[at0011]/items[at1010]/value/defining_code">
-<option value=""></option>
-<option value="at1011">Phase IV</option>
-<option value="at1012">Phase V</option>
-</select>
-</div>
-<div class="CLUSTER">
-
-</div>
-<div class="CLUSTER">
-
-</div>
-</div>
-</div>
-<div class="OBSERVATION">
-<label><b>Body temperature</b></label>
-<div class="HISTORY">
-<label>History</label>
-<div class="EVENT">
-
-<div class="ITEM_TREE">
-
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Temperature</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units">
-<option value=""></option>
-<option value="Cel">Cel</option>
-<option value="[degF]">[degF]</option>
-</select>
-</div>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Comment</label>
-<input class="DV_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0063]/value" type="text"/>
-</div>
-</div>
-<div class="ITEM_TREE">
-<label>State</label>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Current day of menstrual cycle</label>
-<input class="DV_COUNT form-control" name="/data[at0002]/events[at0003]/state[at0029]/items[at0065]/value" type="number"/>
-</div>
-<div class="CLUSTER">
-
+<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/state[at0112]/items[at0113]/value" type="text"/>
 </div>
 <div class="CLUSTER">
 
@@ -400,270 +732,61 @@
 </div>
 </div>
 <div class="ITEM_TREE">
-<label>Protocol</label>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Location of measurement</label>
-<select class="DV_CODED_TEXT form-control" name="/protocol[at0020]/items[at0021]/value/defining_code">
-<option value=""></option>
-<option value="at0025">Rectum</option>
-<option value="at0024">Axilla</option>
-<option value="at0023">Ear canal</option>
-<option value="at0061">Forehead</option>
-<option value="at0022">Mouth</option>
-<option value="at0026">Nasopharynx</option>
-<option value="at0027">Urinary bladder</option>
-<option value="at0028">Intravascular</option>
-<option value="at0043">Skin</option>
-<option value="at0051">Vagina</option>
-<option value="at0054">Oesophagus</option>
-<option value="at0055">Inguinal skin crease</option>
-<option value="at0060">Temple</option>
-</select>
-</div>
-<div class="CLUSTER">
-
-</div>
-<div class="CLUSTER">
-
-</div>
-<div class="CLUSTER">
-
-</div>
-</div>
-</div>
-<div class="OBSERVATION">
-<label><b>Body weight</b></label>
-<div class="HISTORY">
-
-<div class="EVENT">
-
-<div class="ITEM_TREE">
-<label>Simple</label>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Weight</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units">
-<option value=""></option>
-<option value="kg">kg</option>
-<option value="lb">lb</option>
-</select>
-</div>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Comment</label>
-<input class="DV_TEXT form-control" name="/data[at0002]/events[at0003]/data[at0001]/items[at0024]/value" type="text"/>
-</div>
-</div>
-<div class="ITEM_TREE">
-<label>state structure</label>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">State of Dress</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0002]/events[at0003]/state[at0008]/items[at0009]/value/defining_code">
-<option value=""></option>
-<option value="at0011">Lightly clothed/underwear</option>
-<option value="at0013">Naked</option>
-<option value="at0010">Fully clothed, including shoes</option>
-<option value="at0017">Nappy/diaper</option>
-</select>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Confounding Factors</label>
-<input class="DV_TEXT form-control" name="/data[at0002]/events[at0003]/state[at0008]/items[at0025]/value" type="text"/>
-</div>
-</div>
-</div>
-</div>
-<div class="ITEM_TREE">
-<label>protocol structure</label>
-<div class="CLUSTER">
-
-</div>
-</div>
-</div>
-<div class="OBSERVATION">
-<label><b>Height/Length</b></label>
-<div class="HISTORY">
-
-<div class="EVENT">
-
-<div class="ITEM_TREE">
-<label>Simple</label>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Height/Length</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/units">
-<option value=""></option>
-<option value="cm">cm</option>
-<option value="in">in</option>
-</select>
-</div>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Comment</label>
-<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0018]/value" type="text"/>
-</div>
-</div>
-<div class="ITEM_TREE">
-
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Position</label>
-<select class="DV_CODED_TEXT form-control" name="/data[at0001]/events[at0002]/state[at0013]/items[at0014]/value/defining_code">
-<option value=""></option>
-<option value="at0016">Standing</option>
-<option value="at0020">Lying</option>
-</select>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Confounding factors</label>
-<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/state[at0013]/items[at0019]/value" type="text"/>
-</div>
-</div>
-</div>
-</div>
-<div class="ITEM_TREE">
 
 <div class="CLUSTER">
 
 </div>
-</div>
-</div>
-<div class="OBSERVATION">
-<label><b>Indirect oximetry</b></label>
-<div class="HISTORY">
-
-<div class="EVENT">
-
-<div class="ITEM_TREE">
-
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">spO2</label>
-<label>numerator
-                      <input class="small DV_PROPORTION form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator" type="number"/>
+<label class="col-md-2 col-form-label">Laboratory internal identifier</label>
+<label>issuer
+              <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0068]/value/issuer" type="text"/>
 </label>
-<label>denominator
-                      <input class="small DV_PROPORTION form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/denominator" type="number"/>
+<label>assigner
+              <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0068]/value/assigner" type="text"/>
+</label>
+<label>id
+              <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0068]/value/id" type="text"/>
+</label>
+<label>type
+              <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0068]/value/type" type="text"/>
+</label>
+</div>
+<div class="CLUSTER">
+<label>Test request details</label>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Original test requested name</label>
+<input class="DV_TEXT form-control" name="/protocol[at0004]/items[at0094]/items[at0106]/value" type="text"/>
+</div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Requester order identifier</label>
+<label>issuer
+                <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0094]/items[at0062]/value/issuer" type="text"/>
+</label>
+<label>assigner
+                <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0094]/items[at0062]/value/assigner" type="text"/>
+</label>
+<label>id
+                <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0094]/items[at0062]/value/id" type="text"/>
+</label>
+<label>type
+                <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0094]/items[at0062]/value/type" type="text"/>
 </label>
 </div>
 <div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">spOC</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0044]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0044]/value/units">
-<option value=""></option>
-<option value="ml/ml">ml/ml</option>
-</select>
-</div>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">spCO</label>
-<label>numerator
-                      <input class="small DV_PROPORTION form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0045]/value/numerator" type="number"/>
+<label class="col-md-2 col-form-label">Receiver order identifier</label>
+<label>issuer
+                <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0094]/items[at0063]/value/issuer" type="text"/>
 </label>
-<label>denominator
-                      <input class="small DV_PROPORTION form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0045]/value/denominator" type="number"/>
+<label>assigner
+                <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0094]/items[at0063]/value/assigner" type="text"/>
+</label>
+<label>id
+                <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0094]/items[at0063]/value/id" type="text"/>
+</label>
+<label>type
+                <input class="small DV_IDENTIFIER form-control" name="/protocol[at0004]/items[at0094]/items[at0063]/value/type" type="text"/>
 </label>
 </div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">spMet</label>
-<label>numerator
-                      <input class="small DV_PROPORTION form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0046]/value/numerator" type="number"/>
-</label>
-<label>denominator
-                      <input class="small DV_PROPORTION form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0046]/value/denominator" type="number"/>
-</label>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">X - ptcO2</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0039]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0039]/value/units">
-<option value=""></option>
-<option value="mm[Hg]">mm[Hg]</option>
-</select>
-</div>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">X - ptcCO2</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0040]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0040]/value/units">
-<option value=""></option>
-<option value="mm[Hg]">mm[Hg]</option>
-</select>
-</div>
-</div>
-<div class="CLUSTER">
-
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Multimedia image</label>
-<input class="DV_MULTIMEDIA" name="/data[at0001]/events[at0002]/data[at0003]/items[at0019]/value" type="file"/>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Interpretation</label>
-<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/data[at0003]/items[at0058]/value" type="text"/>
-</div>
-</div>
-<div class="ITEM_TREE">
-
-<div class="CLUSTER">
-
-</div>
-<div class="CLUSTER">
-
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Confounding factors</label>
-<input class="DV_TEXT form-control" name="/data[at0001]/events[at0002]/state[at0014]/items[at0016]/value" type="text"/>
-</div>
-</div>
-</div>
-</div>
-<div class="ITEM_TREE">
-
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Sensor site</label>
-<input class="DV_TEXT form-control" name="/protocol[at0007]/items[at0009]/value" type="text"/>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">Sensor type</label>
-<select class="DV_CODED_TEXT form-control" name="/protocol[at0007]/items[at0020]/value/defining_code">
-<option value=""></option>
-<option value="at0048">Transmittal</option>
-<option value="at0049">Reflective</option>
-<option value="at0050">Clamp</option>
-<option value="at0051">Strip</option>
-<option value="at0052">X - Electrode</option>
-</select>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">X - Electrode operating temperature</label>
-<div class="col-md-5">
-<input class="DV_QUANTITY form-control" name="/protocol[at0007]/items[at0037]/value/magnitude" type="text"/>
-</div>
-<div class="col-md-5">
-<select class="DV_QUANTITY form-control" name="/protocol[at0007]/items[at0037]/value/units">
-<option value=""></option>
-<option value="Cel">Cel</option>
-</select>
-</div>
-</div>
-<div class="ELEMENT form-group row">
-<label class="col-md-2 col-form-label">X - Time of sensor application</label>
-<input class="DV_DATE_TIME form-control" name="/protocol[at0007]/items[at0038]/value" type="datetime-local"/>
-</div>
 <div class="CLUSTER">
 
 </div>
@@ -671,8 +794,17 @@
 
 </div>
 </div>
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Point-of-care test</label>
+<input class="DV_BOOLEAN" name="/protocol[at0004]/items[at0111]/value" type="checkbox"/>
 </div>
-<div class="EVALUATION">
+<div class="ELEMENT form-group row">
+<label class="col-md-2 col-form-label">Test method</label>
+</div>
+<div class="CLUSTER">
+
+</div>
+<div class="CLUSTER">
 
 </div>
 </div>

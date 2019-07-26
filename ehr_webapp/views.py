@@ -187,9 +187,12 @@ def py_form(request):
         import json
         def findDiv(div):
         	divs = div.findChildren('div', recursive = False)
+        	headings = div.findChildren('h1')
         	labels = div.findChildren('label', recursive = False)
         	if (len(labels)!=0):
-        	        label = labels[0].text
+        	    label = labels[0].text
+        	    if(len(headings)!=0):
+        	    	label = headings[0].text
         	else:
         	    label = "no Label"
         	if(len(divs)==0):
@@ -197,7 +200,10 @@ def py_form(request):
         		inputs = div.findChildren('input')
         		if(len(inputs)!=0):
         			for ip in inputs:
-        				ans.append(rules[ip['name']])
+        				try:
+        					ans.append(rules[ip['name']])
+        				except KeyError:
+        					pass
         		selects = div.findChildren('select')
         		if(len(selects)!=0):
         			for select in selects:
@@ -218,7 +224,7 @@ def py_form(request):
         				ans[label].append(findDiv(div))
         		return ans
 
-        div = soup.find_all('div', {'class':"COMPOSITION"})  # Set the division from which you want to store the file
+        div = soup.find_all('div', {'class':"OBSERVATION"})  # Set the division from which you want to store the file
         Ans = findDiv(div[0])
         newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
