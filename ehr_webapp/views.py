@@ -229,7 +229,7 @@ def py_form(request):
         				ans[label].append(findDiv(div))
         		return ans
 
-        div = soup.find_all('div', {'class':"COMPOSITION"})  # Set the division from which you want to store the file
+        div = soup.find_all('div', {'class':"OBSERVATION"})  # Set the division from which you want to store the file
         Ans = findDiv(div[0])
         newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
