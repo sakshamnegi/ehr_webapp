@@ -194,7 +194,10 @@ def py_form(request):
         	    if(len(headings)!=0):
         	    	label = headings[0].text
         	else:
-        	    label = "no Label"
+        		Str = ""
+        		for st in div['class']:
+        			Str += st
+        		label = Str
         	if(len(divs)==0):
         		ans = []
         		inputs = div.findChildren('input')
@@ -207,7 +210,9 @@ def py_form(request):
         		selects = div.findChildren('select')
         		if(len(selects)!=0):
         			for select in selects:
-        				ans.append(rules[select['name']])
+        				options = select.findChildren('option', {'selected':"selected"})
+        				for option in options:
+        					ans.append(option.text)
         		if(len(labels)!=0):
         			finalAns = {}
         			finalAns[label] = ans
@@ -224,7 +229,7 @@ def py_form(request):
         				ans[label].append(findDiv(div))
         		return ans
 
-        div = soup.find_all('div', {'class':"OBSERVATION"})  # Set the division from which you want to store the file
+        div = soup.find_all('div', {'class':"COMPOSITION"})  # Set the division from which you want to store the file
         Ans = findDiv(div[0])
         newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
