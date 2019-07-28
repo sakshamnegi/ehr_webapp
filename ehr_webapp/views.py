@@ -110,7 +110,9 @@ def py_upload(request):
                 buttonString = """<div class="container">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Patient ID</span>
-                    <input type="text" class="form-control" placeholder="Patient ID" aria-label="Username" aria-describedby="basic-addon1" required="true">
+                    <input  id="patient_id" type="text" class="form-control" placeholder="Patient ID" aria-label="Username" 
+                        aria-describedby="basic-addon1" required="true" name="patient_id"
+                        pattern="[a-zA-Z0-9]{6,}$"title="Patient ID must have atleast 6 characters(only letters/numbers allowed)">
                 </div>
                 <br><br>
                 <input type="submit" name="Submit" value="Submit" />
@@ -161,6 +163,12 @@ def py_form(request):
         #editing form with POST values
         sourceCode = data
         soup = BeautifulSoup(sourceCode, 'html.parser')
+        try:
+            patientId = str(rules["patient_id"][0])#str(request.GET.get("patient_id"))#soup.find("input",{"id": "patient_id"}).get("value")
+            print("PID ", patientId)
+        except:
+            print("Error while retrieving patient id")
+        
 
         for key, value in rules.items():
             value = value[0]
