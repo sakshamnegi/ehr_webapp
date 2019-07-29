@@ -10,6 +10,7 @@ from django.conf import settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #path of uploaded file
 path = ""
+filename = ""
 
 #path of file to be validated
 vpath = ""
@@ -163,11 +164,6 @@ def py_form(request):
         #editing form with POST values
         sourceCode = data
         soup = BeautifulSoup(sourceCode, 'html.parser')
-        try:
-            patientId = str(rules["patient_id"][0])#str(request.GET.get("patient_id"))#soup.find("input",{"id": "patient_id"}).get("value")
-            print("PID ", patientId)
-        except:
-            print("Error while retrieving patient id")
         
 
         for key, value in rules.items():
@@ -243,8 +239,30 @@ def py_form(request):
         				ans[label].append(findDiv(div))
         		return ans
 
+
+        try:
+            patientId = str(rules["patient_id"][0])#str(request.GET.get("patient_id"))#soup.find("input",{"id": "patient_id"}).get("value")
+            print("PID ", patientId)
+        except:
+            print("Error while retrieving patient id")
+            
+
+        #saving file in mongodb
+        import pymongo
+        from pymongo import MongoClient
+
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client[patientId]
+        cTag = soup.find('div', {'class':"container"})
+        cName = cTag.h1.text
+        posts = db[cName]
+
+        #converting to json
         div = soup.find_all('div', {'class':"OBSERVATION"})  # Set the division from which you want to store the file
         Ans = findDiv(div[0])
+        # changing name of the file
+        global filename
+        Ans['name'] = filename[:-5] + str(posts.count() + 1)
         newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
 
@@ -253,8 +271,16 @@ def py_form(request):
         jsonFormObject = open(jsonForm,"w+")
         json.dump(loadedJSON, jsonFormObject)
         jsonFormObject.close()
+        
+        # continuing with mongodb
+        #posts.drop()
+        posts.create_index([('name', pymongo.ASCENDING)], unique=True)
+        try:
+        	posts.insert_one(loadedJSON)
+        except:
+        	print("Document with same name already present")
 
-
+        	
         return redirect('/response/')
 
     return render(request,'form.html')    
@@ -357,6 +383,8 @@ def TemplateIDRename(savedFile):
     content = fileObject.read()
     soup = BeautifulSoup(content,'html.parser')
     conceptElement = soup.find('concept')
+
+    global filename
     filename = conceptElement.text
     for symbol in filename:
         if (symbol!=' ' and symbol.isalnum()==False):
