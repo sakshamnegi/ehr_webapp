@@ -153,6 +153,7 @@ def py_form(request):
                 break
 
         rules = ast.literal_eval(POSTdata) # it is now a python dictionary
+        print(rules)
 
         #opening form file
         form = os.path.join(BASE_DIR,'templates')
