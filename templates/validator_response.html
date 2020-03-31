@@ -8,12 +8,12 @@
         <form action="" method="post">
             {% csrf_token %}
         
-<div class="container">
-<h2>Document instance is valid!</h2>
-<div id="no-errors">
-
+<div class="jumbotron">
+<h1>Validation Result</h1>
 </div>
-</div>
+<h3>XML Syntax validation : </h3>
+            <div class="alert alert-success"> Okay </div><h3>XML Validation Error :</h3> <ul class="list-group"><li class="list-group-item">ERROR ON LINE 1 b"Element '{http://schemas.openehr.org/v1}contribution': No matching global declaration available for the validation root."</li></ul><div class="alert alert-danger"> <strong> Instance is invalid :(</strong>
+        </div></form>
 <div class="container">
         <form action="" method="post">
                 {% csrf_token %}
@@ -21,4 +21,6 @@
                 
             </form>
         </div>
+        </body> </html>"
+
     

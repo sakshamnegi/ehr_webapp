@@ -5,6 +5,7 @@ from selenium import webdriver
 import clipboard    #for pasting copied instance
 from bs4 import BeautifulSoup
 from django.conf import settings
+from lxml import etree
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -306,7 +307,12 @@ def py_validate(request):
                 savedFile = fs.save(uploaded_file.name, uploaded_file)
                 global vpath
                 vpath = fs.path(savedFile)
-                Validate(filepath = vpath)
+                #new validation code
+                schema_folder = os.path.join(BASE_DIR,'media')
+                xsd_path = schema_folder + '/' + "complete_version.xsd"
+                print(xsd_path)
+
+                Validate(xml_filepath = vpath,xsd_path = xsd_path)
                 fs.delete(savedFile)
                 return redirect('/validator_response/')
             else:
@@ -328,28 +334,60 @@ def py_validator_response(request):
 
 
 ##HELPER FUNCTIONS##
-def Validate(filepath):
-    global webdriverPath
-    driver = webdriver.Chrome(executable_path = webdriverPath)
-    driver.get("https://server001.cloudehrserver.com/cot/opt/xml_instance_validator")
+def Validate(xml_filepath,xsd_path):
+    
+    xmlschema_doc = etree.parse(xsd_path)
+    xmlschema = etree.XMLSchema(xmlschema_doc)
+    log_text = """<div class="jumbotron">
+<h1>Validation Result</h1>
+</div>
+"""
+    # parse xml
+    try:
+        xml_doc = etree.parse(xml_filepath)
+        log_text += """<h3>XML Syntax validation : </h3>
+            <div class="alert alert-success"> Okay </div>"""
 
-    fileinput = driver.find_element_by_id("validatedCustomFile")
-    #get path of opt from system
-    #global path
-    fileinput.send_keys(filepath)
-    submitbutton = driver.find_element_by_name("doit")
-    submitbutton.click()
-    element = driver.find_element_by_xpath("/html/body/main/section[2]/div")
-    source_code = element.get_attribute("outerHTML")
-    driver.quit()
-    #remove heart element
-    soup = BeautifulSoup(source_code,'html.parser')
-    heartElement = soup.find("svg",{'class':"heart"})
-    if heartElement:
-        heartElement.decompose()
-    resultTag  = soup.find("h2")
-    if "is valid" in resultTag.text:
-        resultTag.string.replace_with("Document instance is valid!")
+    # check for file IO error
+    except IOError:
+        log_text += """<div class="alert alert-danger"> Invalid XML file </div>"""
+
+    # check for XML syntax errors
+    except etree.XMLSyntaxError as err:
+        log_text += """<h2>XML Syntax Error</h2> <ul class="list-group">"""
+        for error in err.error_log:
+            log_text += "<li class=\"list-group-item\">" + "ERROR ON LINE " + str(error.line) + " " + str(error.message.encode("utf-8")) + "</li>"
+        log_text += "</ul>"
+    except:
+        log_text += 'Unknown error occurred .\n'
+        
+
+    # validate against schema
+    try:
+        xmlschema.assertValid(xml_doc)
+        log_text += """<h3>XML Schema validation : </h3>
+            <div class="alert alert-success"> Okay </div>"""
+
+    except etree.DocumentInvalid as err:
+        log_text += "<h3>XML Validation Error :</h3> <ul class=\"list-group\">"
+        for error in err.error_log:
+            log_text += "<li class=\"list-group-item\">" + "ERROR ON LINE " + str(error.line) + " " + str(error.message.encode("utf-8")) + "</li>"
+        log_text += "</ul>"
+
+    except:
+        log_text += 'Unknown error occurred .\n'
+        
+    result = xmlschema.validate(xml_doc)
+    if(result):
+        log_text += """<div class="alert alert-success"> <strong> Instance is valid :)</strong>
+        </div>"""
+
+    else:
+        log_text += """<div class="alert alert-danger"> <strong> Instance is invalid :(</strong>
+        </div>"""
+
+    log_text += "</form>"
+
     htmlheadString ="""<!DOCTYPE html>
         <html>
             <head>
@@ -368,8 +406,10 @@ def Validate(filepath):
                 
             </form>
         </div>
+        </body> </html>"
+
     """
-    source_code = htmlheadString + "\n"+ str(soup) + "\n"+ buttonString
+    source_code = htmlheadString + "\n"+ log_text + "\n"+ buttonString
     newfilepath = os.path.join(BASE_DIR,'templates')
     newfilepath = os.path.join(newfilepath,'validator_response.html')
     newfileobject = open(newfilepath,"w+")
