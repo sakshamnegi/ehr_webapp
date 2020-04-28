@@ -229,7 +229,8 @@ def py_form(request):
         		if(len(inputs)!=0):
         			for ip in inputs:
         				try:
-        					ans.append(rules[ip['name']])
+                            if(rules[ip['name']]!=""):
+        					   ans.append(rules[ip['name']])
         				except KeyError:
         					pass
         		selects = div.findChildren('select')
@@ -237,7 +238,8 @@ def py_form(request):
         			for select in selects:
         				options = select.findChildren('option', {'selected':"selected"})
         				for option in options:
-        					ans.append(option.text)
+                            if(option.text!=""):
+        					   ans.append(option.text)
         		if(len(labels)!=0):
         			finalAns = {}
         			finalAns[label] = ans
@@ -266,7 +268,7 @@ def py_form(request):
         import pymongo
         from pymongo import MongoClient
 
-        client = MongoClient('mongodb://localhost:27017/')
+        client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#for local device - ('mongodb://localhost:27017/')
         db = client[patientId]
         cTag = soup.find('div', {'class':"container"})
         cName = cTag.h1.text
@@ -277,7 +279,8 @@ def py_form(request):
         Ans = findDiv(div[0])
         # changing name of the file
         global filename
-        Ans['name'] = filename[:-5] + str(posts.count() + 1)
+        Ans['name'] = filename[:-5] + str(posts.count() + 1) # error will be generated for file saved before connection is made. Repeat it again in that case
+        # if the step of conversion of opt to form is bypasses and form is submitted by going back from response page - the name will be "1", "2" ... , because filename variable will be empty
         newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
 
