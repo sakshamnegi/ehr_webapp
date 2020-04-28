@@ -7,6 +7,11 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from lxml import etree
 
+#trying headless chrome \\TODO
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options 
+
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #path of uploaded file
@@ -17,7 +22,14 @@ filename = ""
 vpath = ""
 savedFormPath = ""
 data = ""
-webdriverPath = os.path.join(BASE_DIR,'chromedriver')
+webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #.exe for windows
+#trying headless chrome \\TODO
+chrome_options = webdriver.ChromeOptions()
+#for heroku
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
 
 def home(request):
     return render(request, 'home.html')
@@ -44,7 +56,8 @@ def py_upload(request):
                 #path = fs.path(name)
 
                 global webdriverPath
-                driver = webdriver.Chrome(executable_path = webdriverPath)
+                #driver = webdriver.Chrome(ChromeDriverManager.install(), chrome_options=chrome_options)
+                driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
                 driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
 
                 fileinput = driver.find_element_by_id("validatedCustomFile")
