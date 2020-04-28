@@ -22,10 +22,12 @@ filename = ""
 vpath = ""
 savedFormPath = ""
 data = ""
-webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #.exe for windows
-#trying headless chrome \\TODO
 chrome_options = webdriver.ChromeOptions()
-#for heroku
+
+#Only for Locak.. COMMENT OUT FOR HEROKU
+#webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #replace with chromedriver.exe for windows
+
+#Only for heroku.. COMMENT OUT FOR LOCAL
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
@@ -56,10 +58,13 @@ def py_upload(request):
                 #path = fs.path(name)
 
                 global webdriverPath
-                #driver = webdriver.Chrome(ChromeDriverManager.install(), chrome_options=chrome_options)
-                driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-                driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
+                #Only for Locak.. COMMENT OUT FOR HEROKU
+                #driver = webdriver.Chrome(executable_path = webdriverPath, chrome_options=chrome_options)
 
+                #Only for Heroku.. COMMENT OUT FOR LOCAL
+                driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+                
+                driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
                 fileinput = driver.find_element_by_id("validatedCustomFile")
                 #get path of opt from system
                 #global path
