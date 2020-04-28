@@ -25,13 +25,13 @@ data = ""
 chrome_options = webdriver.ChromeOptions()
 
 #Only for Locak.. COMMENT OUT FOR HEROKU
-#webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #replace with chromedriver.exe for windows
+webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #replace with chromedriver.exe for windows
 
 #Only for heroku.. COMMENT OUT FOR LOCAL
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
+#chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
+#chrome_options.add_argument("--headless")
+#chrome_options.add_argument("--disable-dev-shm-usage")
+#chrome_options.add_argument("--no-sandbox")
 
 def home(request):
     return render(request, 'home.html')
@@ -59,10 +59,10 @@ def py_upload(request):
 
                 global webdriverPath
                 #Only for Locak.. COMMENT OUT FOR HEROKU
-                #driver = webdriver.Chrome(executable_path = webdriverPath, chrome_options=chrome_options)
+                driver = webdriver.Chrome(executable_path = webdriverPath)
 
                 #Only for Heroku.. COMMENT OUT FOR LOCAL
-                driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+                #driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
                 
                 driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
                 fileinput = driver.find_element_by_id("validatedCustomFile")
@@ -233,7 +233,7 @@ def py_form(request):
         		if(len(inputs)!=0):
         			for ip in inputs:
         				try:
-        					ans.append(rules[ip['name']])
+        					if(rules[ip['name']]!=""):ans.append(rules[ip['name']])
         				except KeyError:
         					pass
         		selects = div.findChildren('select')
@@ -241,7 +241,7 @@ def py_form(request):
         			for select in selects:
         				options = select.findChildren('option', {'selected':"selected"})
         				for option in options:
-        					ans.append(option.text)
+        					if(option.text!=""):ans.append(option.text)
         		if(len(labels)!=0):
         			finalAns = {}
         			finalAns[label] = ans
@@ -270,7 +270,7 @@ def py_form(request):
         import pymongo
         from pymongo import MongoClient
 
-        client = MongoClient('mongodb://localhost:27017/')
+        client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
         db = client[patientId]
         cTag = soup.find('div', {'class':"container"})
         cName = cTag.h1.text
@@ -281,7 +281,8 @@ def py_form(request):
         Ans = findDiv(div[0])
         # changing name of the file
         global filename
-        Ans['name'] = filename[:-5] + str(posts.count() + 1)
+        Ans['name'] = filename[:-5] + str(posts.count() + 1)# error will be generated for file saved before connection is made. Make sure your ip is in whitelist of mongodb atlas
+        # if the step of conversion of opt to form is bypasses and form is submitted by going back from response page - the name will be "1", "2" ... , because filename variable will be empty
         newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
 
