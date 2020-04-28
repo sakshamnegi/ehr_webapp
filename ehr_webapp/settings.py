@@ -25,7 +25,7 @@ SECRET_KEY = '_h-+2yv6jp*njo&#9^(jh!k1!74r=t83nrohk#%rtuz$z#6@!4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'webappehr.azurewebsites.net','ehr-webapp.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'webappehr.azurewebsites.net','ehr-webapp.herokuapp.com', '127.0.0.1'] #127.0.0.1 for local
 
 
 # Application definition
