@@ -24,14 +24,14 @@ savedFormPath = ""
 data = ""
 chrome_options = webdriver.ChromeOptions()
 
-#Only for Locak.. COMMENT OUT FOR HEROKU
-webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #replace with chromedriver.exe for windows
+#Only for Local.. COMMENT OUT FOR HEROKU
+#webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #replace with chromedriver.exe for windows
 
 #Only for heroku.. COMMENT OUT FOR LOCAL
-#chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
-#chrome_options.add_argument("--headless")
-#chrome_options.add_argument("--disable-dev-shm-usage")
-#chrome_options.add_argument("--no-sandbox")
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
 
 def home(request):
     return render(request, 'home.html')
@@ -58,11 +58,11 @@ def py_upload(request):
                 #path = fs.path(name)
 
                 global webdriverPath
-                #Only for Locak.. COMMENT OUT FOR HEROKU
-                driver = webdriver.Chrome(executable_path = webdriverPath)
+                #Only for Local.. COMMENT OUT FOR HEROKU
+                #driver = webdriver.Chrome(executable_path = webdriverPath)
 
                 #Only for Heroku.. COMMENT OUT FOR LOCAL
-                #driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+                driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
                 
                 driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
                 fileinput = driver.find_element_by_id("validatedCustomFile")
