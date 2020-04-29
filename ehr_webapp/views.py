@@ -350,6 +350,7 @@ def py_validator_response(request):
         if('Save' in request.POST):
             ##CONVERT xml (file path in global variable 'vpath') to json 
             ##get patient id and save
+            return redirect('/')  #temporary placeholder
         
     return render(request,'validator_response.html') 
 
