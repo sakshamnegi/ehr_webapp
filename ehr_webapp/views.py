@@ -330,7 +330,6 @@ def py_validate(request):
                 schema_folder = os.path.join(BASE_DIR,'media')
                 xsd_path = schema_folder + '/' + "complete_version.xsd"
                 print(xsd_path)
-
                 Validate(xml_filepath = vpath,xsd_path = xsd_path)
                 fs.delete(savedFile)
                 return redirect('/validator_response/')
@@ -346,8 +345,12 @@ def py_validate(request):
 
 def py_validator_response(request):
     if request.method == 'POST':
-        ##give choice to go to home or 
-        return redirect('/')
+        if('Home' in request.POST):
+            return redirect('/')
+        if('Save' in request.POST):
+            ##CONVERT xml (file path in global variable 'vpath') to json 
+            ##get patient id and save
+        
     return render(request,'validator_response.html') 
 
 
@@ -399,7 +402,19 @@ def Validate(xml_filepath,xsd_path):
     result = xmlschema.validate(xml_doc)
     if(result):
         log_text += """<div class="alert alert-success"> <strong> Instance is valid :)</strong>
-        </div>"""
+        </div>
+        <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Patient ID</span>
+                    <input  id="patient_id" type="text" class="form-control" placeholder="Patient ID" aria-label="Username" 
+                        aria-describedby="basic-addon1" required="true" name="patient_id"
+                        pattern="[a-zA-Z0-9]{6,}$"title="Patient ID must have atleast 6 characters(only letters/numbers allowed)">
+                </div>
+                <br><br>
+                <input type="submit" name="Save" value="Save" />
+                <br>
+
+
+        """
 
     else:
         log_text += """<div class="alert alert-danger"> <strong> Instance is invalid :(</strong>
@@ -425,7 +440,7 @@ def Validate(xml_filepath,xsd_path):
                 
             </form>
         </div>
-        </body> </html>"
+        </body> </html>
 
     """
     source_code = htmlheadString + "\n"+ log_text + "\n"+ buttonString
