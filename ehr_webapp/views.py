@@ -215,48 +215,48 @@ def py_form(request):
         # converting the saved html to json
         import json
         def findDiv(div):
-        	divs = div.findChildren('div', recursive = False)
-        	headings = div.findChildren('h1')
-        	labels = div.findChildren('label', recursive = False)
-        	if (len(labels)!=0):
-        	    label = labels[0].text
-        	    if(len(headings)!=0):
-        	    	label = headings[0].text
-        	else:
-        		Str = ""
-        		for st in div['class']:
-        			Str += st
-        		label = Str
-        	if(len(divs)==0):
-        		ans = []
-        		inputs = div.findChildren('input')
-        		if(len(inputs)!=0):
-        			for ip in inputs:
-        				try:
-        					if(rules[ip['name']]!=""):ans.append(rules[ip['name']])
-        				except KeyError:
-        					pass
-        		selects = div.findChildren('select')
-        		if(len(selects)!=0):
-        			for select in selects:
-        				options = select.findChildren('option', {'selected':"selected"})
-        				for option in options:
-        					if(option.text!=""):ans.append(option.text)
-        		if(len(labels)!=0):
-        			finalAns = {}
-        			finalAns[label] = ans
-        		else:
-        		    finalAns = ans
-        		return finalAns
+            divs = div.findChildren('div', recursive = False)
+            headings = div.findChildren('h1')
+            labels = div.findChildren('label', recursive = False)
+            if (len(labels)!=0):
+                label = labels[0].text
+                if(len(headings)!=0):
+                    label = headings[0].text
+            else:
+                Str = ""
+                for st in div['class']:
+                    Str += st
+                label = Str
+            if(len(divs)==0):
+                ans = []
+                inputs = div.findChildren('input')
+                if(len(inputs)!=0):
+                    for ip in inputs:
+                        try:
+                            if(rules[ip['name']]!=""):ans.append(rules[ip['name']])
+                        except KeyError:
+                            pass
+                selects = div.findChildren('select')
+                if(len(selects)!=0):
+                    for select in selects:
+                        options = select.findChildren('option', {'selected':"selected"})
+                        for option in options:
+                            if(option.text!=""):ans.append(option.text)
+                if(len(labels)!=0):
+                    finalAns = {}
+                    finalAns[label] = ans
+                else:
+                    finalAns = ans
+                return finalAns
 
-        	else: # if it contains sub divisions
-        		ans = {}
-        		for div in divs:
-        			if(label not in ans):
-        				ans[label] = [findDiv(div)]
-        			else:
-        				ans[label].append(findDiv(div))
-        		return ans
+            else: # if it contains sub divisions
+                ans = {}
+                for div in divs:
+                    if(label not in ans):
+                        ans[label] = [findDiv(div)]
+                    else:
+                        ans[label].append(findDiv(div))
+                return ans
 
 
         try:
@@ -296,11 +296,11 @@ def py_form(request):
         #posts.drop()
         posts.create_index([('name', pymongo.ASCENDING)], unique=True)
         try:
-        	posts.insert_one(loadedJSON)
+            posts.insert_one(loadedJSON)
         except:
-        	print("Document with same name already present")
+            print("Document with same name already present")
 
-        	
+            
         return redirect('/response/')
 
     return render(request,'form.html')    
@@ -324,6 +324,8 @@ def py_validate(request):
             if(str(uploaded_file).endswith('.xml') or str(uploaded_file).endswith('.html')):
                 fs = FileSystemStorage()
                 savedFile = fs.save(uploaded_file.name, uploaded_file)
+                global filename
+                filename = uploaded_file.name
                 global vpath
                 vpath = fs.path(savedFile)
                 #new validation code
@@ -331,7 +333,7 @@ def py_validate(request):
                 xsd_path = schema_folder + '/' + "complete_version.xsd"
                 print(xsd_path)
                 Validate(xml_filepath = vpath,xsd_path = xsd_path)
-                fs.delete(savedFile)
+                #fs.delete(savedFile)
                 return redirect('/validator_response/')
             else:
                 error = """
@@ -349,6 +351,70 @@ def py_validator_response(request):
             return redirect('/')
         if('Save' in request.POST):
             ##CONVERT xml (file path in global variable 'vpath') to json 
+            #getting patientID from post values
+            import ast
+            import json
+            temp = str(request.POST)
+            POSTdata = ""
+            flag = 0
+            for char in temp :
+                if(char == '{'):
+                    flag = 1
+                if(flag == 1):
+                    POSTdata = POSTdata + char
+                if(char == '}'):
+                    flag = 0
+                    break
+
+            rules = ast.literal_eval(POSTdata)
+            try:
+                patientId = str(rules["patient_id"][0])
+                print("PID ", patientId)
+            except:
+                print("Error while retrieving patient id")
+
+            # converting xml to json
+            import xmlschema
+            schema_folder = os.path.join(BASE_DIR,'media')
+            xsd_path = schema_folder + '/' + "complete_version.xsd"
+            xs = xmlschema.XMLSchema(xsd_path)
+            global vpath
+            newDict = xs.to_dict(vpath)
+            fs = FileSystemStorage()
+            fs.delete(vpath)
+
+            cName = newDict["data"]["archetype_details"]["template_id"]["value"]
+
+            # saving to mongodb atlas
+            import pymongo
+            from pymongo import MongoClient
+
+            client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
+            db = client[patientId]
+            global filename
+            #cName = filename[:-5]
+            stemp = ""
+            stemp += cName[:-6]
+            stemp =  stemp.replace('_', ' ')
+            stemp = stemp.title()
+            posts = db[stemp]
+
+            #adding name to json
+            newDict['name'] = cName[:-1] + str(posts.count() + 1)
+
+            newJSON = json.dumps(newDict)
+            loadedJSON = json.loads(newJSON)
+            jsonForm = os.path.join(BASE_DIR,'media')
+            jsonForm = os.path.join(jsonForm,'savedForm.json')
+            jsonFormObject = open(jsonForm,"w+")
+            json.dump(loadedJSON, jsonFormObject)
+            jsonFormObject.close()
+
+            posts.create_index([('name', pymongo.ASCENDING)], unique=True)
+            try:
+                posts.insert_one(loadedJSON)
+            except:
+                print("Document with same name already present")
             ##get patient id and save
             return redirect('/')  #temporary placeholder
         
