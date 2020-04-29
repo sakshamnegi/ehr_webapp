@@ -309,10 +309,11 @@ def py_response(request):
     if request.method == 'POST':
         if('rhome' in request.POST):
             return redirect('/')
-        if('rvalidate' in request.POST):    
-            print(request.POST.get('value'))
-            Validate(filepath= savedFormPath)
-            return redirect('/validator_response/')
+        #removing validation option from saved document    
+        #if('rvalidate' in request.POST):    
+            #print(request.POST.get('value'))
+            #Validate(filepath= savedFormPath)
+            #return redirect('/validator_response/')
     return render(request,'response.html')
 
 
@@ -336,7 +337,7 @@ def py_validate(request):
             else:
                 error = """
                 <div class="alert alert-danger" role="alert">
-                Please select .xml or .html file
+                Please select .xml file
                 </div>"""
                 return render(request, 'validate.html',{'error':error})
 
