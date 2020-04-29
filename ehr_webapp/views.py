@@ -122,7 +122,7 @@ def py_upload(request):
                         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                         <title>Form</title>
                     </head>
-                    <body>
+                    <body style="margin-left: 30px;margin-right:30px">
                 <form action="" method="post">
                     {% csrf_token %}
                 """
@@ -410,11 +410,9 @@ def Validate(xml_filepath,xsd_path):
                         aria-describedby="basic-addon1" required="true" name="patient_id"
                         pattern="[a-zA-Z0-9]{6,}$"title="Patient ID must have atleast 6 characters(only letters/numbers allowed)">
                 </div>
-                <br><br>
-                <input type="submit" name="Save" value="Save" />
                 <br>
-
-
+                <input type="submit" name="Save" value="Save" />
+                <br><br>
         """
 
     else:
@@ -429,15 +427,15 @@ def Validate(xml_filepath,xsd_path):
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                 <title>Validator Response</title>
             </head>
-            <body>
+            <body style="margin-left: 30px;margin-right:30px">
         <form action="" method="post">
             {% csrf_token %}
         """
 
-    buttonString = """<div class="container">
+    buttonString = """<div>
         <form action="" method="post">
                 {% csrf_token %}
-                <input type="submit" name="valid" value="Home" />
+                <input type="submit" name="Home" value="Home" />
                 
             </form>
         </div>
