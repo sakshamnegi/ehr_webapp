@@ -383,8 +383,6 @@ def py_validator_response(request):
             fs = FileSystemStorage()
             fs.delete(vpath)
 
-            cName = newDict["data"]["name"]["value"]# if template id is present -> ["archetype_details"]["template_id"]["value"]
-
             # saving to mongodb atlas
             import pymongo
             from pymongo import MongoClient
@@ -392,15 +390,21 @@ def py_validator_response(request):
             client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
             db = client[patientId]
             global filename
-            # if template id is present
-            #stemp = ""
-            #stemp += cName[:-6]
-            #stemp =  stemp.replace('_', ' ')
-            #stemp = stemp.title()
-            posts = db[cName] # db[stemp]
+            try:
+                cName = newDict["data"]["archetype_details"]["template_id"]["value"]
+                stemp = ""
+                stemp += cName[:-6]
+                stemp =  stemp.replace('_', ' ')
+                stemp = stemp.title()
+                posts = db[stemp]
+                newDict['name'] = cName[:-1] + str(posts.count() + 1)
+            except:
+                cName = newDict["data"]["name"]["value"]# if template id is present -> ["archetype_details"]["template_id"]["value"]
+                posts = db[cName]
+                newDict['name'] = newDict["data"]["@archetype_node_id"][:-2] + newDict["data"]["language"]["code_string"] + ".v" + str(posts.count() + 1)
 
             #adding name to json
-            newDict['name'] = newDict["data"]["@archetype_node_id"][:-2] + newDict["data"]["language"]["code_string"] + ".v" + str(posts.count() + 1)
+            
 
             newJSON = json.dumps(newDict)
             loadedJSON = json.loads(newJSON)
