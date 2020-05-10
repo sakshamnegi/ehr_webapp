@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Retrieve Data</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+	<h1>Get Patient Data</h1>
+</div>	
+ 
+        
+	<div class="container">
+	    <h3>Choose type of retrieval : </h3><br>
+		   <form action="" method="post">
+            {% csrf_token %}
+            <h5>Patient EHR</h5>
+		    <div class="input-group mb-3">
+			  <input id="patient_id" type="text" class="form-control" placeholder="Patient ID" aria-label="patient id" 
+			  aria-describedby="basic-addon2" required="true" name="patient_id" 
+			  pattern="[a-zA-Z0-9]{6,}$"title="Patient ID must have atleast 6 characters(only letters/numbers allowed)">
+			  <div class="input-group-append">
+			    <button class="btn btn-primary" type="submit"  name="Get EHR" >Get Patient EHR</button>
+			  </div>
+			</div>
+			</form>
+			
+			
+			<form action="" method="post">
+            {% csrf_token %}
+            <br><h5>Specific Composition</h5>
+			<div class="input-group">
+			  <input id="patient_id_composition" type="text" class="form-control" placeholder="Patient ID" aria-label="patient id" 
+			  aria-describedby="basic-addon2" required="true" name="patient_id" 
+			  pattern="[a-zA-Z0-9]{6,}$"title="Patient ID must have atleast 6 characters(only letters/numbers allowed)">
+			  
+			  <input id="composition_name" type="text" class="form-control" placeholder="Composition Name" aria-label="patient id" 
+			  aria-describedby="basic-addon2" required="true" name="patient_id" 
+			  pattern="[a-zA-Z0-9]{6,}$"title="Composition name required">
+			  <div class="input-group-append">
+			    <button class="btn btn-primary" type="submit"  name="Get Composition" >Get Patient Composition</button>
+			  </div>
+			</div>
+			</form>
+			
+			
+			
+		
+		
+	
+	</div>
+{% endblock %}

@@ -22,10 +22,12 @@ filename = ""
 vpath = ""
 savedFormPath = ""
 data = ""
-webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #.exe for windows
-#trying headless chrome \\TODO
 chrome_options = webdriver.ChromeOptions()
-#for heroku
+
+#Only for Local.. COMMENT OUT FOR HEROKU
+#webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #replace with chromedriver.exe for windows
+
+#Only for heroku.. COMMENT OUT FOR LOCAL
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
@@ -56,10 +58,13 @@ def py_upload(request):
                 #path = fs.path(name)
 
                 global webdriverPath
-                #driver = webdriver.Chrome(ChromeDriverManager.install(), chrome_options=chrome_options)
-                driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-                driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
+                #Only for Local.. COMMENT OUT FOR HEROKU
+                #driver = webdriver.Chrome(executable_path = webdriverPath)
 
+                #Only for Heroku.. COMMENT OUT FOR LOCAL
+                driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+                
+                driver.get("https://server001.cloudehrserver.com/cot/opt/html_form_generator")
                 fileinput = driver.find_element_by_id("validatedCustomFile")
                 #get path of opt from system
                 #global path
@@ -117,7 +122,7 @@ def py_upload(request):
                         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                         <title>Form</title>
                     </head>
-                    <body>
+                    <body style="margin-left: 30px;margin-right:30px">
                 <form action="" method="post">
                     {% csrf_token %}
                 """
@@ -146,6 +151,19 @@ def py_upload(request):
 
     return render(request,'upload.html')
 
+def py_retrieve(request):
+    if request.method == 'POST':
+        if('Get EHR' in request.POST):
+            #Get EHR FROM DATABASE
+            #EDIT get_ehr.html with corresponding response
+            
+            return render(request, 'get_ehr.html')
+        if('Get Composition' in request.POST):
+            
+            #Get COMPOSITION FROM DATABASE
+            #EDIT get_composition.html with corresponding response
+            return render(request, 'get_composition.html')
+    return render(request, 'retrieve.html')
 
 def py_form(request):
 
@@ -210,48 +228,48 @@ def py_form(request):
         # converting the saved html to json
         import json
         def findDiv(div):
-        	divs = div.findChildren('div', recursive = False)
-        	headings = div.findChildren('h1')
-        	labels = div.findChildren('label', recursive = False)
-        	if (len(labels)!=0):
-        	    label = labels[0].text
-        	    if(len(headings)!=0):
-        	    	label = headings[0].text
-        	else:
-        		Str = ""
-        		for st in div['class']:
-        			Str += st
-        		label = Str
-        	if(len(divs)==0):
-        		ans = []
-        		inputs = div.findChildren('input')
-        		if(len(inputs)!=0):
-        			for ip in inputs:
-        				try:
-        					ans.append(rules[ip['name']])
-        				except KeyError:
-        					pass
-        		selects = div.findChildren('select')
-        		if(len(selects)!=0):
-        			for select in selects:
-        				options = select.findChildren('option', {'selected':"selected"})
-        				for option in options:
-        					ans.append(option.text)
-        		if(len(labels)!=0):
-        			finalAns = {}
-        			finalAns[label] = ans
-        		else:
-        		    finalAns = ans
-        		return finalAns
+            divs = div.findChildren('div', recursive = False)
+            headings = div.findChildren('h1')
+            labels = div.findChildren('label', recursive = False)
+            if (len(labels)!=0):
+                label = labels[0].text
+                if(len(headings)!=0):
+                    label = headings[0].text
+            else:
+                Str = ""
+                for st in div['class']:
+                    Str += st
+                label = Str
+            if(len(divs)==0):
+                ans = []
+                inputs = div.findChildren('input')
+                if(len(inputs)!=0):
+                    for ip in inputs:
+                        try:
+                            if(rules[ip['name']]!=""):ans.append(rules[ip['name']])
+                        except KeyError:
+                            pass
+                selects = div.findChildren('select')
+                if(len(selects)!=0):
+                    for select in selects:
+                        options = select.findChildren('option', {'selected':"selected"})
+                        for option in options:
+                            if(option.text!=""):ans.append(option.text)
+                if(len(labels)!=0):
+                    finalAns = {}
+                    finalAns[label] = ans
+                else:
+                    finalAns = ans
+                return finalAns
 
-        	else: # if it contains sub divisions
-        		ans = {}
-        		for div in divs:
-        			if(label not in ans):
-        				ans[label] = [findDiv(div)]
-        			else:
-        				ans[label].append(findDiv(div))
-        		return ans
+            else: # if it contains sub divisions
+                ans = {}
+                for div in divs:
+                    if(label not in ans):
+                        ans[label] = [findDiv(div)]
+                    else:
+                        ans[label].append(findDiv(div))
+                return ans
 
 
         try:
@@ -265,7 +283,7 @@ def py_form(request):
         import pymongo
         from pymongo import MongoClient
 
-        client = MongoClient('mongodb://localhost:27017/')
+        client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
         db = client[patientId]
         cTag = soup.find('div', {'class':"container"})
         cName = cTag.h1.text
@@ -276,7 +294,8 @@ def py_form(request):
         Ans = findDiv(div[0])
         # changing name of the file
         global filename
-        Ans['name'] = filename[:-5] + str(posts.count() + 1)
+        Ans['name'] = filename[:-5] + str(posts.count() + 1)# error will be generated for file saved before connection is made. Make sure your ip is in whitelist of mongodb atlas
+        # if the step of conversion of opt to form is bypasses and form is submitted by going back from response page - the name will be "1", "2" ... , because filename variable will be empty
         newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
 
@@ -290,11 +309,11 @@ def py_form(request):
         #posts.drop()
         posts.create_index([('name', pymongo.ASCENDING)], unique=True)
         try:
-        	posts.insert_one(loadedJSON)
+            posts.insert_one(loadedJSON)
         except:
-        	print("Document with same name already present")
+            print("Document with same name already present")
 
-        	
+            
         return redirect('/response/')
 
     return render(request,'form.html')    
@@ -303,10 +322,11 @@ def py_response(request):
     if request.method == 'POST':
         if('rhome' in request.POST):
             return redirect('/')
-        if('rvalidate' in request.POST):    
-            print(request.POST.get('value'))
-            Validate(filepath= savedFormPath)
-            return redirect('/validator_response/')
+        #removing validation option from saved document    
+        #if('rvalidate' in request.POST):    
+            #print(request.POST.get('value'))
+            #Validate(filepath= savedFormPath)
+            #return redirect('/validator_response/')
     return render(request,'response.html')
 
 
@@ -317,20 +337,21 @@ def py_validate(request):
             if(str(uploaded_file).endswith('.xml') or str(uploaded_file).endswith('.html')):
                 fs = FileSystemStorage()
                 savedFile = fs.save(uploaded_file.name, uploaded_file)
+                global filename
+                filename = uploaded_file.name
                 global vpath
                 vpath = fs.path(savedFile)
                 #new validation code
                 schema_folder = os.path.join(BASE_DIR,'media')
                 xsd_path = schema_folder + '/' + "complete_version.xsd"
                 print(xsd_path)
-
                 Validate(xml_filepath = vpath,xsd_path = xsd_path)
-                fs.delete(savedFile)
+                #fs.delete(savedFile)
                 return redirect('/validator_response/')
             else:
                 error = """
                 <div class="alert alert-danger" role="alert">
-                Please select .xml or .html file
+                Please select .xml file
                 </div>"""
                 return render(request, 'validate.html',{'error':error})
 
@@ -339,8 +360,81 @@ def py_validate(request):
 
 def py_validator_response(request):
     if request.method == 'POST':
-        ##give choice to go to home or 
-        return redirect('/')
+        if('Home' in request.POST):
+            return redirect('/')
+        if('Save' in request.POST):
+            ##CONVERT xml (file path in global variable 'vpath') to json 
+            #getting patientID from post values
+            import ast
+            import json
+            temp = str(request.POST)
+            POSTdata = ""
+            flag = 0
+            for char in temp :
+                if(char == '{'):
+                    flag = 1
+                if(flag == 1):
+                    POSTdata = POSTdata + char
+                if(char == '}'):
+                    flag = 0
+                    break
+
+            rules = ast.literal_eval(POSTdata)
+            try:
+                patientId = str(rules["patient_id"][0])
+                print("PID ", patientId)
+            except:
+                print("Error while retrieving patient id")
+
+            # converting xml to json
+            import xmlschema
+            schema_folder = os.path.join(BASE_DIR,'media')
+            xsd_path = schema_folder + '/' + "complete_version.xsd"
+            xs = xmlschema.XMLSchema(xsd_path)
+            global vpath
+            newDict = xs.to_dict(vpath)
+            fs = FileSystemStorage()
+            fs.delete(vpath)
+
+            # saving to mongodb atlas
+            import pymongo
+            from pymongo import MongoClient
+
+            client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
+            db = client[patientId]
+            global filename
+            try:
+                cName = newDict["data"]["archetype_details"]["template_id"]["value"]
+                stemp = ""
+                stemp += cName[:-6]
+                stemp =  stemp.replace('_', ' ')
+                stemp = stemp.title()
+                posts = db[stemp]
+                newDict['name'] = cName[:-1] + str(posts.count() + 1)
+            except:
+                cName = newDict["data"]["name"]["value"]# if template id is present -> ["archetype_details"]["template_id"]["value"]
+                posts = db[cName]
+                newDict['name'] = newDict["data"]["@archetype_node_id"][:-2] + newDict["data"]["language"]["code_string"] + ".v" + str(posts.count() + 1)
+
+            #adding name to json
+            
+
+            newJSON = json.dumps(newDict)
+            loadedJSON = json.loads(newJSON)
+            jsonForm = os.path.join(BASE_DIR,'media')
+            jsonForm = os.path.join(jsonForm,'savedForm.json')
+            jsonFormObject = open(jsonForm,"w+")
+            json.dump(loadedJSON, jsonFormObject)
+            jsonFormObject.close()
+
+            posts.create_index([('name', pymongo.ASCENDING)], unique=True)
+            try:
+                posts.insert_one(loadedJSON)
+            except:
+                print("Document with same name already present")
+            ##get patient id and save
+            return redirect('/')  #temporary placeholder
+        
     return render(request,'validator_response.html') 
 
 
@@ -392,7 +486,17 @@ def Validate(xml_filepath,xsd_path):
     result = xmlschema.validate(xml_doc)
     if(result):
         log_text += """<div class="alert alert-success"> <strong> Instance is valid :)</strong>
-        </div>"""
+        </div>
+        <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Patient ID</span>
+                    <input  id="patient_id" type="text" class="form-control" placeholder="Patient ID" aria-label="Username" 
+                        aria-describedby="basic-addon1" required="true" name="patient_id"
+                        pattern="[a-zA-Z0-9]{6,}$"title="Patient ID must have atleast 6 characters(only letters/numbers allowed)">
+                </div>
+                <br>
+                <input type="submit" name="Save" value="Save" />
+                <br><br>
+        """
 
     else:
         log_text += """<div class="alert alert-danger"> <strong> Instance is invalid :(</strong>
@@ -406,19 +510,19 @@ def Validate(xml_filepath,xsd_path):
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                 <title>Validator Response</title>
             </head>
-            <body>
+            <body style="margin-left: 30px;margin-right:30px">
         <form action="" method="post">
             {% csrf_token %}
         """
 
-    buttonString = """<div class="container">
+    buttonString = """<div>
         <form action="" method="post">
                 {% csrf_token %}
-                <input type="submit" name="valid" value="Home" />
+                <input type="submit" name="Home" value="Home" />
                 
             </form>
         </div>
-        </body> </html>"
+        </body> </html>
 
     """
     source_code = htmlheadString + "\n"+ log_text + "\n"+ buttonString
