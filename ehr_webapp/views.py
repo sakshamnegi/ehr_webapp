@@ -151,6 +151,19 @@ def py_upload(request):
 
     return render(request,'upload.html')
 
+def py_retrieve(request):
+    if request.method == 'POST':
+        if('Get EHR' in request.POST):
+            #Get EHR FROM DATABASE
+            #EDIT get_ehr.html with corresponding response
+            
+            return render(request, 'get_ehr.html')
+        if('Get Composition' in request.POST):
+            
+            #Get COMPOSITION FROM DATABASE
+            #EDIT get_composition.html with corresponding response
+            return render(request, 'get_composition.html')
+    return render(request, 'retrieve.html')
 
 def py_form(request):
 
