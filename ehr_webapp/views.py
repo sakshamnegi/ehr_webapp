@@ -10,7 +10,6 @@ from lxml import etree
 #trying headless chrome \\TODO
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options 
-import js2py
 
 
 
