@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Retrieve Data</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron" >
+	<h1>Retrieval Type </h1>
+</div>	
+	 
+	<div id= "retrieval_area" class="container" >
+		<br>
+		<h3>Choose type of retrieval : <!-- patient id obtained from retrieve page-->
+            {% if pid %}
+            {{pid | safe}}
+            {% endif %}
+        </h3><br>
+		   <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><strong> Get all EHRs for 
+                        {% if pid %}
+                        {{pid | safe}}
+                        {% endif %} </strong></span>
+                  </div>
+            
+            <button class="btn btn-primary" type="submit" id="patient_ehr_button" name="get_ehr">Get EHRs</button>
+        </div>  
+            </form>
+            
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><strong> Get Specific Composition </strong></span>
+                      </div>
+                    <select class = "custom-select" id="collection_id" name="composition_id">
+                        <option selected>Choose Composition...</option>
+                        <!-- Available collections for patient_id from retrieve page-->
+                    {% for entry in collections %}
+                        <option value="{{ entry }}">{{ entry }}</option>
+                    {% endfor %}
+                    </select>
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit" name="get_composition">Get Collection</button>
+                    </div>
+                  </div>
+                </form>
+			
+	</div>
+{% endblock %}

@@ -27,7 +27,9 @@ urlpatterns = [
     path('response/', views.py_response, name= 'response'),
     path('validator_response/',views.py_validator_response, name = 'valid'),
     path('validate/', views.py_validate, name= 'validate'),
-    path('retrieve/', views.py_retrieve, name='retrieve')
+    path('retrieve/', views.py_retrieve, name='retrieve'),
+    path('no_record/',views.py_no_record, name ='no_record'),
+    path('retrieval_response/',views.py_retrieval_response, name='retrieval_response')
     
 ]
 

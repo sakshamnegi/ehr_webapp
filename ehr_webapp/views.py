@@ -10,6 +10,7 @@ from lxml import etree
 #trying headless chrome \\TODO
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options 
+import js2py
 
 
 
@@ -150,20 +151,6 @@ def py_upload(request):
                 ##OPT TO FILE END##               
 
     return render(request,'upload.html')
-
-def py_retrieve(request):
-    if request.method == 'POST':
-        if('Get EHR' in request.POST):
-            #Get EHR FROM DATABASE
-            #EDIT get_ehr.html with corresponding response
-            
-            return render(request, 'get_ehr.html')
-        if('Get Composition' in request.POST):
-            
-            #Get COMPOSITION FROM DATABASE
-            #EDIT get_composition.html with corresponding response
-            return render(request, 'get_composition.html')
-    return render(request, 'retrieve.html')
 
 def py_form(request):
 
@@ -433,11 +420,50 @@ def py_validator_response(request):
             except:
                 print("Document with same name already present")
             ##get patient id and save
-            return redirect('/')  #temporary placeholder
+            return render(request, 'response.html')  #temporary placeholder
         
     return render(request,'validator_response.html') 
 
+def py_retrieve(request):
+    if request.method == 'POST':
+        if('pid' in request.POST):
+            pid = request.POST.get('patient_id')
+            ## get names of collections available for this patient from atlas  and store in collections array below
+            collections = ["vital signs", "genomics", "physical activity"] ##remove these values and get from atlas
+            
+            #if patient data exists open retrieval type html
+            return render(request,'choose_retrieval.html',{'pid':pid, 'collections': collections})
+        
+        if('get_ehr' in request.POST):
+            print('get ehr pressed')
+            return redirect('/retrieval_response/')
+            #create document with all ehrs here
+            
+        if('get_composition' in request.POST):
+            requestedCollection = request.POST.get('composition_id')
+            print(requestedCollection)
+            #get collection corresponding to requestedCollection
+            return redirect('/retrieval_response/')
+        else:
+            #display no record found page  
+            return redirect('/no_record/')
+            
+    return render(request, 'retrieve.html')
 
+
+def py_retrieval_response(request):
+    if request.method == 'POST':
+        return render(request,'retrieval_response.html')
+    return render(request, 'retrieval_response.html')
+
+
+def py_no_record(request):
+    if request.method == 'POST':
+        if('home' in request.POST):
+            return redirect('/')
+        if('tryagain' in request.POST):
+            return redirect('/retrieve/')
+    return render(request,'no_record.html')
 
 ##HELPER FUNCTIONS##
 def Validate(xml_filepath,xsd_path):
@@ -445,9 +471,9 @@ def Validate(xml_filepath,xsd_path):
     xmlschema_doc = etree.parse(xsd_path)
     xmlschema = etree.XMLSchema(xmlschema_doc)
     log_text = """<div class="jumbotron">
-<h1>Validation Result</h1>
-</div>
-"""
+    <h1>Validation Result</h1>
+    </div>
+    """
     # parse xml
     try:
         xml_doc = etree.parse(xml_filepath)

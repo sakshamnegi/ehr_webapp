@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>No Record Found</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="alert alert-danger" role="alert">
+  No record found!
+
+</div>
+<form action="" method="post">
+		{% csrf_token %}
+    	<input type="submit" class="btn btn-primary" name="tryagain" value="Try Again"/>
+		<input type="submit" class="btn btn-primary" name="home" value="Home"/>
+		
+</form>
+
+
+</div>
+
+{% endblock %}
