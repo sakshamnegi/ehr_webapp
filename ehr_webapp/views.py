@@ -6,6 +6,7 @@ import clipboard    #for pasting copied instance
 from bs4 import BeautifulSoup
 from django.conf import settings
 from lxml import etree
+import json
 
 #trying headless chrome \\TODO
 from webdriver_manager.chrome import ChromeDriverManager
@@ -437,9 +438,13 @@ def py_retrieve(request):
             client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
             db = client[pid]
             collections = db.list_collection_names()
-            
+
+            #if patient doesn't exist
+            if not collections:
+                return redirect('/no_record/')
             #if patient data exists open retrieval type html
-            return render(request,'choose_retrieval.html',{'pid':pid, 'collections': collections})
+            else:
+                return render(request,'choose_retrieval.html',{'pid':pid, 'collections': collections})
         
         if('get_ehr' in request.POST):
             # creating dictionary of collections within the database 'pid'
@@ -487,15 +492,17 @@ def py_retrieve(request):
 
 def py_retrieval_response(request):
     ans = "no"
+    form = os.path.join(BASE_DIR,'media')
+    form = os.path.join(form,'savedEHR.json')
+    formObject = open(form)
+    data = json.load(formObject)
+    keys = data.keys()
+    formObject.close()
     if request.method == 'POST':
-        form = os.path.join(BASE_DIR,'media')
-        form = os.path.join(form,'savedEHR.json')
-        formObject = open(form)
-        data = json.load(formObject)
-        keys = data.keys()
-        formObject.close()
-        return render(request,'retrieval_response.html', {'data':data, 'keys':keys})
-    return render(request, 'retrieval_response.html', {'ans':ans})
+        if('download_ehr_json' in request.POST):
+            ##download json file
+            print("Downloading ehr json")
+    return render(request,'retrieval_response.html', {'data':data, 'keys':keys})
 
 
 def py_no_record(request):

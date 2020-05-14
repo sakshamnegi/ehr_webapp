@@ -19,9 +19,13 @@
 		data not present
 	{% endif %}
 	<p>TODO</p>
-	{% if ans %}
-		{{ ans }}
-	{% endif %}	
+	
 </div>
+<form action="" method="post">
+	{% csrf_token %}
+<div class = "container">
+	<button class="btn btn-primary" type="submit" name="download_ehr_json">Download JSON</button>
+</div>
+</form>
    
 {% endblock %}
