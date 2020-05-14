@@ -24,6 +24,9 @@ savedFormPath = ""
 data = ""
 chrome_options = webdriver.ChromeOptions()
 
+# for retrieval purposes
+pid = ""
+
 #Only for Local.. COMMENT OUT FOR HEROKU
 #webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #replace with chromedriver.exe for windows
 
@@ -426,15 +429,47 @@ def py_validator_response(request):
 def py_retrieve(request):
     if request.method == 'POST':
         if('pid' in request.POST):
-            pid = request.POST.get('patient_id')
             ## get names of collections available for this patient from atlas  and store in collections array below
-            collections = ["vital signs", "genomics", "physical activity"] ##remove these values and get from atlas
+            global pid
+            pid = request.POST.get('patient_id')
+            import pymongo
+            from pymongo import MongoClient
+            client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
+            db = client[pid]
+            collections = db.list_collection_names()
             
             #if patient data exists open retrieval type html
             return render(request,'choose_retrieval.html',{'pid':pid, 'collections': collections})
         
         if('get_ehr' in request.POST):
-            print('get ehr pressed')
+            # creating dictionary of collections within the database 'pid'
+            import pymongo
+            from bson import json_util
+            import json
+            from pymongo import MongoClient
+            client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
+            db = client[pid]
+            collections = db.list_collection_names()
+            ans = {}
+            for i in collections:
+                cl = db[i]
+                cursor = cl.find({})
+                cans = []
+                for doc in cursor:
+                    #for key in doc: # onject of type ObjectID is not JSON serializable
+                        #doc[key] = str(doc[key]) # ID of each document is ObjectID type 
+                    cans.append(doc)
+                ans[i] = cans
+
+            #converting dictionary to json
+            newJSON = json.dumps(ans, default=json_util.default)
+            loadedJSON = json.loads(newJSON)
+            jsonForm = os.path.join(BASE_DIR,'media')
+            jsonForm = os.path.join(jsonForm,'savedEHR.json')
+            jsonFormObject = open(jsonForm,"w+")
+            json.dump(loadedJSON, jsonFormObject)
+            jsonFormObject.close()
+
             return redirect('/retrieval_response/')
             #create document with all ehrs here
             
@@ -451,9 +486,16 @@ def py_retrieve(request):
 
 
 def py_retrieval_response(request):
+    ans = "no"
     if request.method == 'POST':
-        return render(request,'retrieval_response.html')
-    return render(request, 'retrieval_response.html')
+        form = os.path.join(BASE_DIR,'media')
+        form = os.path.join(form,'savedEHR.json')
+        formObject = open(form)
+        data = json.load(formObject)
+        keys = data.keys()
+        formObject.close()
+        return render(request,'retrieval_response.html', {'data':data, 'keys':keys})
+    return render(request, 'retrieval_response.html', {'ans':ans})
 
 
 def py_no_record(request):
