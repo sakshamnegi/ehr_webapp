@@ -523,13 +523,14 @@ def py_retrieval_response(request):
             try:
                 file_name = data['name']
             except:
-            	file_name = pid + "_all_EHRs"#get the filename of desired excel file
-            path_to_file = form #get the path of desired excel file
+            	file_name = pid + "_all_EHRs"#get the filename of desired file
+            path_to_file = form #get the path of desired  file
             file_path = form
+            file_name +=".json"
             if os.path.exists(file_path):
                 with open(file_path, 'rb') as fh:
                     response = HttpResponse(fh.read(), content_type="application/json")
-                    response['Content-Disposition'] = 'inline; filename=' + file_name
+                    response['Content-Disposition'] = 'attachment; filename=' + file_name 
                     return response
             raise Http404
             print("Downloading ehr json")

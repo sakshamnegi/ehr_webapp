@@ -8,6 +8,14 @@
 <div class="jumbotron">
 	<h1>Result</h1>
 </div>
+
+<form action="" method="post">
+	{% csrf_token %}
+<div class = "container">
+	<button class="btn btn-primary" type="submit" name="download_ehr_json">Download JSON</button>
+</div>
+</form>
+
 <div id="json_area" class="container">
 	<br>
 	{% if data %}
@@ -17,11 +25,6 @@
 	{% endif %}
 	
 </div>
-<form action="" method="post">
-	{% csrf_token %}
-<div class = "container">
-	<button class="btn btn-primary" type="submit" name="download_ehr_json">Download JSON</button>
-</div>
-</form>
+
    
 {% endblock %}
