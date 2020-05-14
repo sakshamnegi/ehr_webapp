@@ -10,15 +10,11 @@
 </div>
 <div id="json_area" class="container">
 	<br>
-	{% if key %}
-		data present
-		{% for key in keys %}
-			{{ key|safe }}
-		{% endfor %}
+	{% if data %}
+		<pre>{{ data|pprint }}</pre>
 	{% else %}
 		data not present
 	{% endif %}
-	<p>TODO</p>
 	
 </div>
 <form action="" method="post">

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+from django.http import HttpResponse, Http404
 import os
 from selenium import webdriver
 import clipboard    #for pasting copied instance
@@ -472,7 +474,7 @@ def py_retrieve(request):
             jsonForm = os.path.join(BASE_DIR,'media')
             jsonForm = os.path.join(jsonForm,'savedEHR.json')
             jsonFormObject = open(jsonForm,"w+")
-            json.dump(loadedJSON, jsonFormObject)
+            json.dump(loadedJSON, jsonFormObject, indent = 4)
             jsonFormObject.close()
 
             return redirect('/retrieval_response/')
@@ -482,6 +484,24 @@ def py_retrieve(request):
             requestedCollection = request.POST.get('composition_id')
             print(requestedCollection)
             #get collection corresponding to requestedCollection
+            import pymongo
+            from bson import json_util
+            import json
+            from pymongo import MongoClient
+            client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
+            db = client[pid]
+            cl = db[requestedCollection]
+            cursor = cl.find({})
+            requestedDoc = cursor[cl.count()-1]
+
+            newJSON = json.dumps(requestedDoc, default=json_util.default)
+            loadedJSON = json.loads(newJSON)
+            jsonForm = os.path.join(BASE_DIR,'media')
+            jsonForm = os.path.join(jsonForm,'savedEHR.json')
+            jsonFormObject = open(jsonForm,"w+")
+            json.dump(loadedJSON, jsonFormObject, indent = 4)
+            jsonFormObject.close()
+
             return redirect('/retrieval_response/')
         else:
             #display no record found page  
@@ -491,7 +511,6 @@ def py_retrieve(request):
 
 
 def py_retrieval_response(request):
-    ans = "no"
     form = os.path.join(BASE_DIR,'media')
     form = os.path.join(form,'savedEHR.json')
     formObject = open(form)
@@ -501,8 +520,20 @@ def py_retrieval_response(request):
     if request.method == 'POST':
         if('download_ehr_json' in request.POST):
             ##download json file
+            try:
+                file_name = data['name']
+            except:
+            	file_name = pid + "_all_EHRs"#get the filename of desired excel file
+            path_to_file = form #get the path of desired excel file
+            file_path = form
+            if os.path.exists(file_path):
+                with open(file_path, 'rb') as fh:
+                    response = HttpResponse(fh.read(), content_type="application/json")
+                    response['Content-Disposition'] = 'inline; filename=' + file_name
+                    return response
+            raise Http404
             print("Downloading ehr json")
-    return render(request,'retrieval_response.html', {'data':data, 'keys':keys})
+    return render(request,'retrieval_response.html', {'data':data})
 
 
 def py_no_record(request):
