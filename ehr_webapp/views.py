@@ -429,16 +429,18 @@ def py_validator_response(request):
         
     return render(request,'validator_response.html') 
 
+collections = []
 def py_retrieve(request):
+    global pid
     if request.method == 'POST':
         if('pid' in request.POST):
-            ## get names of collections available for this patient from atlas  and store in collections array below
-            global pid
+            ## get names of collections available for this patient from atlas  and store in collections array below 
             pid = request.POST.get('patient_id')
             import pymongo
             from pymongo import MongoClient
             client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
             db = client[pid]
+            global collections 
             collections = db.list_collection_names()
 
             #if patient doesn't exist
@@ -482,6 +484,14 @@ def py_retrieve(request):
             
         if('get_composition' in request.POST):
             requestedCollection = request.POST.get('composition_id')
+            if(requestedCollection == 'Choose Composition...'):
+                #render page again with error message
+                error = """
+                <div class="alert alert-danger" role="alert">
+                Please choose a composition from list 
+                </div>"""
+                print(pid)
+                return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
             print(requestedCollection)
             #get collection corresponding to requestedCollection
             import pymongo
@@ -503,6 +513,23 @@ def py_retrieve(request):
             jsonFormObject.close()
 
             return redirect('/retrieval_response/')
+
+
+        if('get_composition_after' in request.POST):
+            requestedCollection = request.POST.get('composition_id2')
+            if(requestedCollection == 'Choose Composition...'):
+                #render page again with error message
+                error = """
+                <div class="alert alert-danger" role="alert">
+                Please choose a composition from list
+                </div>"""
+                print(pid)
+                return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
+            # get date in appropriate format
+            # and retrieve compositions after that date
+            # change redirect url to retrieval_response once done
+            # TODO 
+            return redirect('/no_record/')
         else:
             #display no record found page  
             return redirect('/no_record/')
@@ -523,13 +550,14 @@ def py_retrieval_response(request):
             try:
                 file_name = data['name']
             except:
-            	file_name = pid + "_all_EHRs"#get the filename of desired excel file
-            path_to_file = form #get the path of desired excel file
+            	file_name = pid + "_all_EHRs"#get the filename of desired file
+            path_to_file = form #get the path of desired  file
             file_path = form
+            file_name +=".json"
             if os.path.exists(file_path):
                 with open(file_path, 'rb') as fh:
                     response = HttpResponse(fh.read(), content_type="application/json")
-                    response['Content-Disposition'] = 'inline; filename=' + file_name
+                    response['Content-Disposition'] = 'attachment; filename=' + file_name 
                     return response
             raise Http404
             print("Downloading ehr json")
