@@ -429,6 +429,7 @@ def py_validator_response(request):
         
     return render(request,'validator_response.html') 
 
+collections = []
 def py_retrieve(request):
     if request.method == 'POST':
         if('pid' in request.POST):
@@ -439,6 +440,7 @@ def py_retrieve(request):
             from pymongo import MongoClient
             client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
             db = client[pid]
+            global collections 
             collections = db.list_collection_names()
 
             #if patient doesn't exist
@@ -482,6 +484,13 @@ def py_retrieve(request):
             
         if('get_composition' in request.POST):
             requestedCollection = request.POST.get('composition_id')
+            if(requestedCollection == 'Choose Composition...'):
+                #render page again with error message
+                error = """
+                <div class="alert alert-danger" role="alert">
+                Please choose a composition from list 
+                </div>"""
+                return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
             print(requestedCollection)
             #get collection corresponding to requestedCollection
             import pymongo
@@ -503,6 +512,20 @@ def py_retrieve(request):
             jsonFormObject.close()
 
             return redirect('/retrieval_response/')
+        if('get_composition_after' in request.POST):
+            requestedCollection = request.POST.get('composition_id2')
+            if(requestedCollection == 'Choose Composition...'):
+                #render page again with error message
+                error = """
+                <div class="alert alert-danger" role="alert">
+                Please choose a composition from list
+                </div>"""
+                return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
+            # get date in appropriate format
+            # and retrieve compositions after that date
+            # change redirect url to retrieval_response once done
+            # TODO 
+            return redirect('/no_record/')
         else:
             #display no record found page  
             return redirect('/no_record/')
