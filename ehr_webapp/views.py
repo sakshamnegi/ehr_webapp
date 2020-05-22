@@ -490,6 +490,8 @@ def py_retrieve(request):
                 <div class="alert alert-danger" role="alert">
                 Please choose a composition from list 
                 </div>"""
+                global pid
+                print(pid)
                 return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
             print(requestedCollection)
             #get collection corresponding to requestedCollection
@@ -512,6 +514,8 @@ def py_retrieve(request):
             jsonFormObject.close()
 
             return redirect('/retrieval_response/')
+
+
         if('get_composition_after' in request.POST):
             requestedCollection = request.POST.get('composition_id2')
             if(requestedCollection == 'Choose Composition...'):
@@ -520,6 +524,8 @@ def py_retrieve(request):
                 <div class="alert alert-danger" role="alert">
                 Please choose a composition from list
                 </div>"""
+                global pid
+                print(pid)
                 return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
             # get date in appropriate format
             # and retrieve compositions after that date
