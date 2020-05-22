@@ -274,6 +274,8 @@ def py_form(request):
         #saving file in mongodb
         import pymongo
         from pymongo import MongoClient
+        from datetime import datetime
+        from pytz import timezone
 
         client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
         db = client[patientId]
@@ -287,7 +289,9 @@ def py_form(request):
         # changing name of the file
         global filename
         Ans['name'] = filename[:-5] + str(posts.count() + 1)# error will be generated for file saved before connection is made. Make sure your ip is in whitelist of mongodb atlas
-        # if the step of conversion of opt to form is bypasses and form is submitted by going back from response page - the name will be "1", "2" ... , because filename variable will be empty
+        # if the step of conversion of opt to form is bypassed and form is submitted by going back from response page - the name will be "1", "2" ... , because filename variable will be empty
+        tempDate = str(datetime.now(timezone('Asia/Kolkata')))
+        Ans['date'] = tempDate[:10]
         newJSON = json.dumps(Ans)
         loadedJSON = json.loads(newJSON)
 
@@ -391,6 +395,8 @@ def py_validator_response(request):
             # saving to mongodb atlas
             import pymongo
             from pymongo import MongoClient
+            from datetime import datetime
+            from pytz import timezone
 
             client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
             db = client[patientId]
@@ -408,8 +414,8 @@ def py_validator_response(request):
                 posts = db[cName]
                 newDict['name'] = newDict["data"]["@archetype_node_id"][:-2] + newDict["data"]["language"]["code_string"] + ".v" + str(posts.count() + 1)
 
-            #adding name to json
-            
+            tempDate = str(datetime.now(timezone('Asia/Kolkata')))
+            newDict['date'] = tempDate[:10]
 
             newJSON = json.dumps(newDict)
             loadedJSON = json.loads(newJSON)
@@ -525,11 +531,37 @@ def py_retrieve(request):
                 </div>"""
                 print(pid)
                 return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
-            # get date in appropriate format
-            # and retrieve compositions after that date
+            requestedDate = request.POST.get('date')
+            import pymongo
+            from bson import json_util
+            import json
+            from pymongo import MongoClient
+            client = MongoClient('mongodb+srv://RDJ:rdjpass@cluster0-4wly7.azure.mongodb.net/test?retryWrites=true&w=majority')#('mongodb://localhost:27017/')
+            db = client[pid]
+            cl = db[requestedCollection]
+            cursor = cl.find({})
+            requestedDoc = {}
+            docGroup = []
+            for doc in cursor:
+                try:
+                    if(doc['date']>=requestedDate):
+                        docGroup.append(doc)
+                except:
+                    continue
+            if(len(docGroup)==0):
+                return redirect('/no_record/')
+            requestedDoc[requestedCollection] = docGroup
+
+            newJSON = json.dumps(requestedDoc, default=json_util.default)
+            loadedJSON = json.loads(newJSON)
+            jsonForm = os.path.join(BASE_DIR,'media')
+            jsonForm = os.path.join(jsonForm,'savedEHR.json')
+            jsonFormObject = open(jsonForm,"w+")
+            json.dump(loadedJSON, jsonFormObject, indent = 4)
+            jsonFormObject.close()
             # change redirect url to retrieval_response once done
             # TODO 
-            return redirect('/no_record/')
+            return redirect('/retrieval_response/')
         else:
             #display no record found page  
             return redirect('/no_record/')

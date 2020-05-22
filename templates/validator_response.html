@@ -12,8 +12,19 @@
     <h1>Validation Result</h1>
     </div>
     <h3>XML Syntax validation : </h3>
-            <div class="alert alert-success"> Okay </div><h3>XML Validation Error :</h3> <ul class="list-group"><li class="list-group-item">ERROR ON LINE 117 b"Element '{http://schemas.openehr.org/v1}type': This element is not expected. Expected is ( {http://schemas.openehr.org/v1}namespace )."</li><li class="list-group-item">ERROR ON LINE 200 b"Element '{http://schemas.openehr.org/v1}type': This element is not expected. Expected is ( {http://schemas.openehr.org/v1}namespace )."</li><li class="list-group-item">ERROR ON LINE 212 b"Element '{http://schemas.openehr.org/v1}value': [facet 'pattern'] The value '2012-11-01TZ' is not accepted by the pattern '\\d{4}((((0[1-9])|(1[0-2]))((0[1-9])|([12]\\d)|(3[01]))?)?|(\\-(((0[1-9])|(1[0-2]))(\\-((0[1-9])|([12]\\d)|(3[01])))?)?)?)'."</li><li class="list-group-item">ERROR ON LINE 212 b"Element '{http://schemas.openehr.org/v1}value': '2012-11-01TZ' is not a valid value of the atomic type '{http://schemas.openehr.org/v1}Iso8601Date'."</li><li class="list-group-item">ERROR ON LINE 256 b"Element '{http://schemas.openehr.org/v1}type': This element is not expected. Expected is ( {http://schemas.openehr.org/v1}namespace )."</li><li class="list-group-item">ERROR ON LINE 382 b"Element '{http://schemas.openehr.org/v1}type': This element is not expected. Expected is ( {http://schemas.openehr.org/v1}namespace )."</li><li class="list-group-item">ERROR ON LINE 449 b"Element '{http://schemas.openehr.org/v1}type': This element is not expected. Expected is ( {http://schemas.openehr.org/v1}namespace )."</li></ul><div class="alert alert-danger"> <strong> Instance is invalid :(</strong>
-        </div></form>
+            <div class="alert alert-success"> Okay </div><h3>XML Schema validation : </h3>
+            <div class="alert alert-success"> Okay </div><div class="alert alert-success"> <strong> Instance is valid :)</strong>
+        </div>
+        <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Patient ID</span>
+                    <input  id="patient_id" type="text" class="form-control" placeholder="Patient ID" aria-label="Username" 
+                        aria-describedby="basic-addon1" required="true" name="patient_id"
+                        pattern="[a-zA-Z0-9]{6,}$"title="Patient ID must have atleast 6 characters(only letters/numbers allowed)">
+                </div>
+                <br>
+                <input type="submit" name="Save" value="Save" />
+                <br><br>
+        </form>
 <div>
         <form action="" method="post">
                 {% csrf_token %}
