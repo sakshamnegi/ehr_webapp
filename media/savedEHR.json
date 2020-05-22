@@ -1,933 +1,122 @@
 {
-    "Discharge Summary": [
-        {
-            "_id": {
-                "$oid": "5eaaf5c9c6a7352c4d2c37c1"
-            },
-            "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "@xmlns": "http://schemas.openehr.org/v1",
-            "@xsi:type": "ORIGINAL_VERSION",
-            "contribution": {
-                "id": {
-                    "@xsi:type": "GENERIC_ID",
-                    "value": "10aec661-5458-4ff6-8e63-c2265537196d::000000001573",
-                    "scheme": null
-                },
-                "namespace": null,
-                "type": null
-            },
-            "commit_audit": {
-                "system_id": "10aec661-5458-4ff6-8e63-c2265537196d",
-                "committer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "Peri Yankemout"
-                },
-                "time_committed": {
-                    "value": "2006-11-22T18:57:05"
-                },
-                "change_type": {
-                    "value": "creation",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
-                        },
-                        "code_string": "249"
-                    }
-                }
-            },
-            "uid": {
-                "value": "7baa7cb1-1e89-4c36-991b-66218e70a6a6::10aec661-5458-4ff6-8e63-c2265537196d::1"
-            },
-            "data": {
-                "@xsi:type": "COMPOSITION",
-                "@archetype_node_id": "openEHR-EHR-COMPOSITION.discharge.v1",
-                "name": {
-                    "value": "Discharge Summary"
-                },
-                "language": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "en"
-                },
-                "territory": {
-                    "terminology_id": {
-                        "value": "ISO 1366"
-                    },
-                    "code_string": "036"
-                },
-                "category": {
-                    "value": "event",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
-                        },
-                        "code_string": "433"
-                    }
-                },
-                "composer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "Peri Yankemout"
-                },
-                "context": {
-                    "start_time": {
-                        "value": "2006-11-22T18:57:06"
-                    },
-                    "setting": {
-                        "value": "unknown",
-                        "defining_code": {
-                            "terminology_id": {
-                                "value": "openehr"
-                            },
-                            "code_string": "251"
-                        }
-                    },
-                    "other_context": {
-                        "@xsi:type": "ITEM_TREE",
-                        "@archetype_node_id": "at0001",
-                        "name": {
-                            "value": "Tree"
-                        },
-                        "items": [
-                            {
-                                "@xsi:type": "ELEMENT",
-                                "@archetype_node_id": "at0002",
-                                "name": {
-                                    "value": "Episode identifier"
-                                },
-                                "value": {
-                                    "@xsi:type": "DV_TEXT",
-                                    "value": "2c4a06c2-e3bd-4cd3-a6bb-1fd83df66107"
-                                }
-                            }
-                        ]
-                    },
-                    "health_care_facility": {
-                        "name": "HappyBubs Hospital"
-                    }
-                },
-                "content": [
-                    {
-                        "@xsi:type": "SECTION",
-                        "@archetype_node_id": "openEHR-EHR-SECTION.interventions.v1",
-                        "name": {
-                            "value": "Interventions"
-                        },
-                        "items": [
-                            {
-                                "@xsi:type": "ACTION",
-                                "@archetype_node_id": "openEHR-EHR-ACTION.medication.v1",
-                                "name": {
-                                    "value": "Vitamin K"
-                                },
-                                "language": {
-                                    "terminology_id": {
-                                        "value": "openehr"
-                                    },
-                                    "code_string": "en"
-                                },
-                                "encoding": {
-                                    "terminology_id": {
-                                        "value": "IANA"
-                                    },
-                                    "code_string": "utf-8"
-                                },
-                                "subject": {
-                                    "@xsi:type": "PARTY_SELF"
-                                },
-                                "time": {
-                                    "value": "2006-11-22T18:57:06"
-                                },
-                                "description": {
-                                    "@xsi:type": "ITEM_TREE",
-                                    "@archetype_node_id": "openEHR-EHR-ITEM_TREE.medication.v1",
-                                    "name": {
-                                        "value": "Medication description"
-                                    },
-                                    "items": [
-                                        {
-                                            "@xsi:type": "ELEMENT",
-                                            "@archetype_node_id": "at0001",
-                                            "name": {
-                                                "value": "Name of medication"
-                                            },
-                                            "value": {
-                                                "@xsi:type": "DV_TEXT",
-                                                "value": "Vitamin K"
-                                            }
-                                        }
-                                    ]
-                                },
-                                "ism_transition": {
-                                    "current_state": {
-                                        "value": "self",
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": "openehr"
-                                            },
-                                            "code_string": "0"
-                                        }
-                                    },
-                                    "transition": {
-                                        "value": null,
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": null
-                                            },
-                                            "code_string": null
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "@xsi:type": "ACTION",
-                                "@archetype_node_id": "openEHR-EHR-ACTION.medication.v1",
-                                "name": {
-                                    "value": "Hepatitis B"
-                                },
-                                "language": {
-                                    "terminology_id": {
-                                        "value": "openehr"
-                                    },
-                                    "code_string": "en"
-                                },
-                                "encoding": {
-                                    "terminology_id": {
-                                        "value": "IANA"
-                                    },
-                                    "code_string": "utf-8"
-                                },
-                                "subject": {
-                                    "@xsi:type": "PARTY_SELF"
-                                },
-                                "time": {
-                                    "value": "2006-11-22T18:57:06"
-                                },
-                                "description": {
-                                    "@xsi:type": "ITEM_TREE",
-                                    "@archetype_node_id": "openEHR-EHR-ITEM_TREE.medication-vaccine.v1",
-                                    "name": {
-                                        "value": "Vaccine description"
-                                    },
-                                    "items": [
-                                        {
-                                            "@xsi:type": "ELEMENT",
-                                            "@archetype_node_id": "at0001.1",
-                                            "name": {
-                                                "value": "Vaccine"
-                                            },
-                                            "value": {
-                                                "@xsi:type": "DV_TEXT",
-                                                "value": "Hepatitis B"
-                                            }
-                                        },
-                                        {
-                                            "@xsi:type": "CLUSTER",
-                                            "@archetype_node_id": "at0018",
-                                            "name": {
-                                                "value": "Administration information"
-                                            },
-                                            "items": [
-                                                {
-                                                    "@xsi:type": "ELEMENT",
-                                                    "@archetype_node_id": "at0022",
-                                                    "name": {
-                                                        "value": "Sequence number"
-                                                    },
-                                                    "value": {
-                                                        "@xsi:type": "DV_COUNT",
-                                                        "magnitude": 1
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                "ism_transition": {
-                                    "current_state": {
-                                        "value": "self",
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": "openehr"
-                                            },
-                                            "code_string": "0"
-                                        }
-                                    },
-                                    "transition": {
-                                        "value": null,
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": null
-                                            },
-                                            "code_string": null
-                                        }
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "lifecycle_state": {
-                "value": "completed",
-                "defining_code": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "532"
-                }
-            },
-            "name": "openEHR-EHR-COMPOSITION.discharge.en.v1"
+    "_id": {
+        "$oid": "5eaaf815c6a7352c4d2c37c3"
+    },
+    "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "@xmlns": "http://schemas.openehr.org/v1",
+    "@xsi:type": "ORIGINAL_VERSION",
+    "contribution": {
+        "id": {
+            "@xsi:type": "GENERIC_ID",
+            "value": "10aec661-5458-4ff6-8e63-c2265537196d::000000001573",
+            "scheme": null
         },
-        {
-            "_id": {
-                "$oid": "5eaaf661165b40b9fa11c940"
-            },
-            "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "@xmlns": "http://schemas.openehr.org/v1",
-            "@xsi:type": "ORIGINAL_VERSION",
-            "contribution": {
-                "id": {
-                    "@xsi:type": "GENERIC_ID",
-                    "value": "10aec661-5458-4ff6-8e63-c2265537196d::000000001573",
-                    "scheme": null
-                },
-                "namespace": null,
-                "type": null
-            },
-            "commit_audit": {
-                "system_id": "10aec661-5458-4ff6-8e63-c2265537196d",
-                "committer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "Peri Yankemout"
-                },
-                "time_committed": {
-                    "value": "2006-11-22T18:57:05"
-                },
-                "change_type": {
-                    "value": "creation",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
-                        },
-                        "code_string": "249"
-                    }
-                }
-            },
-            "uid": {
-                "value": "7baa7cb1-1e89-4c36-991b-66218e70a6a6::10aec661-5458-4ff6-8e63-c2265537196d::1"
-            },
-            "data": {
-                "@xsi:type": "COMPOSITION",
-                "@archetype_node_id": "openEHR-EHR-COMPOSITION.discharge.v1",
-                "name": {
-                    "value": "Discharge Summary"
-                },
-                "language": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "en"
-                },
-                "territory": {
-                    "terminology_id": {
-                        "value": "ISO 1366"
-                    },
-                    "code_string": "036"
-                },
-                "category": {
-                    "value": "event",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
-                        },
-                        "code_string": "433"
-                    }
-                },
-                "composer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "Peri Yankemout"
-                },
-                "context": {
-                    "start_time": {
-                        "value": "2006-11-22T18:57:06"
-                    },
-                    "setting": {
-                        "value": "unknown",
-                        "defining_code": {
-                            "terminology_id": {
-                                "value": "openehr"
-                            },
-                            "code_string": "251"
-                        }
-                    },
-                    "other_context": {
-                        "@xsi:type": "ITEM_TREE",
-                        "@archetype_node_id": "at0001",
-                        "name": {
-                            "value": "Tree"
-                        },
-                        "items": [
-                            {
-                                "@xsi:type": "ELEMENT",
-                                "@archetype_node_id": "at0002",
-                                "name": {
-                                    "value": "Episode identifier"
-                                },
-                                "value": {
-                                    "@xsi:type": "DV_TEXT",
-                                    "value": "2c4a06c2-e3bd-4cd3-a6bb-1fd83df66107"
-                                }
-                            }
-                        ]
-                    },
-                    "health_care_facility": {
-                        "name": "HappyBubs Hospital"
-                    }
-                },
-                "content": [
-                    {
-                        "@xsi:type": "SECTION",
-                        "@archetype_node_id": "openEHR-EHR-SECTION.interventions.v1",
-                        "name": {
-                            "value": "Interventions"
-                        },
-                        "items": [
-                            {
-                                "@xsi:type": "ACTION",
-                                "@archetype_node_id": "openEHR-EHR-ACTION.medication.v1",
-                                "name": {
-                                    "value": "Vitamin K"
-                                },
-                                "language": {
-                                    "terminology_id": {
-                                        "value": "openehr"
-                                    },
-                                    "code_string": "en"
-                                },
-                                "encoding": {
-                                    "terminology_id": {
-                                        "value": "IANA"
-                                    },
-                                    "code_string": "utf-8"
-                                },
-                                "subject": {
-                                    "@xsi:type": "PARTY_SELF"
-                                },
-                                "time": {
-                                    "value": "2006-11-22T18:57:06"
-                                },
-                                "description": {
-                                    "@xsi:type": "ITEM_TREE",
-                                    "@archetype_node_id": "openEHR-EHR-ITEM_TREE.medication.v1",
-                                    "name": {
-                                        "value": "Medication description"
-                                    },
-                                    "items": [
-                                        {
-                                            "@xsi:type": "ELEMENT",
-                                            "@archetype_node_id": "at0001",
-                                            "name": {
-                                                "value": "Name of medication"
-                                            },
-                                            "value": {
-                                                "@xsi:type": "DV_TEXT",
-                                                "value": "Vitamin K"
-                                            }
-                                        }
-                                    ]
-                                },
-                                "ism_transition": {
-                                    "current_state": {
-                                        "value": "self",
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": "openehr"
-                                            },
-                                            "code_string": "0"
-                                        }
-                                    },
-                                    "transition": {
-                                        "value": null,
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": null
-                                            },
-                                            "code_string": null
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "@xsi:type": "ACTION",
-                                "@archetype_node_id": "openEHR-EHR-ACTION.medication.v1",
-                                "name": {
-                                    "value": "Hepatitis B"
-                                },
-                                "language": {
-                                    "terminology_id": {
-                                        "value": "openehr"
-                                    },
-                                    "code_string": "en"
-                                },
-                                "encoding": {
-                                    "terminology_id": {
-                                        "value": "IANA"
-                                    },
-                                    "code_string": "utf-8"
-                                },
-                                "subject": {
-                                    "@xsi:type": "PARTY_SELF"
-                                },
-                                "time": {
-                                    "value": "2006-11-22T18:57:06"
-                                },
-                                "description": {
-                                    "@xsi:type": "ITEM_TREE",
-                                    "@archetype_node_id": "openEHR-EHR-ITEM_TREE.medication-vaccine.v1",
-                                    "name": {
-                                        "value": "Vaccine description"
-                                    },
-                                    "items": [
-                                        {
-                                            "@xsi:type": "ELEMENT",
-                                            "@archetype_node_id": "at0001.1",
-                                            "name": {
-                                                "value": "Vaccine"
-                                            },
-                                            "value": {
-                                                "@xsi:type": "DV_TEXT",
-                                                "value": "Hepatitis B"
-                                            }
-                                        },
-                                        {
-                                            "@xsi:type": "CLUSTER",
-                                            "@archetype_node_id": "at0018",
-                                            "name": {
-                                                "value": "Administration information"
-                                            },
-                                            "items": [
-                                                {
-                                                    "@xsi:type": "ELEMENT",
-                                                    "@archetype_node_id": "at0022",
-                                                    "name": {
-                                                        "value": "Sequence number"
-                                                    },
-                                                    "value": {
-                                                        "@xsi:type": "DV_COUNT",
-                                                        "magnitude": 1
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                "ism_transition": {
-                                    "current_state": {
-                                        "value": "self",
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": "openehr"
-                                            },
-                                            "code_string": "0"
-                                        }
-                                    },
-                                    "transition": {
-                                        "value": null,
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": null
-                                            },
-                                            "code_string": null
-                                        }
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "lifecycle_state": {
-                "value": "completed",
-                "defining_code": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "532"
-                }
-            },
-            "name": "openEHR-EHR-COMPOSITION.discharge.en.v2"
+        "namespace": null,
+        "type": null
+    },
+    "commit_audit": {
+        "system_id": "10aec661-5458-4ff6-8e63-c2265537196d",
+        "committer": {
+            "@xsi:type": "PARTY_IDENTIFIED",
+            "name": "Peri Yankemout"
         },
-        {
-            "_id": {
-                "$oid": "5eaaf815c6a7352c4d2c37c3"
-            },
-            "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "@xmlns": "http://schemas.openehr.org/v1",
-            "@xsi:type": "ORIGINAL_VERSION",
-            "contribution": {
-                "id": {
-                    "@xsi:type": "GENERIC_ID",
-                    "value": "10aec661-5458-4ff6-8e63-c2265537196d::000000001573",
-                    "scheme": null
+        "time_committed": {
+            "value": "2006-11-22T18:57:05"
+        },
+        "change_type": {
+            "value": "creation",
+            "defining_code": {
+                "terminology_id": {
+                    "value": "openehr"
                 },
-                "namespace": null,
-                "type": null
-            },
-            "commit_audit": {
-                "system_id": "10aec661-5458-4ff6-8e63-c2265537196d",
-                "committer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "Peri Yankemout"
-                },
-                "time_committed": {
-                    "value": "2006-11-22T18:57:05"
-                },
-                "change_type": {
-                    "value": "creation",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
-                        },
-                        "code_string": "249"
-                    }
-                }
-            },
-            "uid": {
-                "value": "7baa7cb1-1e89-4c36-991b-66218e70a6a6::10aec661-5458-4ff6-8e63-c2265537196d::1"
-            },
-            "data": {
-                "@xsi:type": "COMPOSITION",
-                "@archetype_node_id": "openEHR-EHR-COMPOSITION.discharge.v1",
-                "name": {
-                    "value": "Discharge Summary"
-                },
-                "language": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "en"
-                },
-                "territory": {
-                    "terminology_id": {
-                        "value": "ISO 1366"
-                    },
-                    "code_string": "036"
-                },
-                "category": {
-                    "value": "event",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
-                        },
-                        "code_string": "433"
-                    }
-                },
-                "composer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "Peri Yankemout"
-                },
-                "context": {
-                    "start_time": {
-                        "value": "2006-11-22T18:57:06"
-                    },
-                    "setting": {
-                        "value": "unknown",
-                        "defining_code": {
-                            "terminology_id": {
-                                "value": "openehr"
-                            },
-                            "code_string": "251"
-                        }
-                    },
-                    "other_context": {
-                        "@xsi:type": "ITEM_TREE",
-                        "@archetype_node_id": "at0001",
-                        "name": {
-                            "value": "Tree"
-                        },
-                        "items": [
-                            {
-                                "@xsi:type": "ELEMENT",
-                                "@archetype_node_id": "at0002",
-                                "name": {
-                                    "value": "Episode identifier"
-                                },
-                                "value": {
-                                    "@xsi:type": "DV_TEXT",
-                                    "value": "2c4a06c2-e3bd-4cd3-a6bb-1fd83df66107"
-                                }
-                            }
-                        ]
-                    },
-                    "health_care_facility": {
-                        "name": "HappyBubs Hospital"
-                    }
-                },
-                "content": [
-                    {
-                        "@xsi:type": "SECTION",
-                        "@archetype_node_id": "openEHR-EHR-SECTION.interventions.v1",
-                        "name": {
-                            "value": "Interventions"
-                        },
-                        "items": [
-                            {
-                                "@xsi:type": "ACTION",
-                                "@archetype_node_id": "openEHR-EHR-ACTION.medication.v1",
-                                "name": {
-                                    "value": "Vitamin K"
-                                },
-                                "language": {
-                                    "terminology_id": {
-                                        "value": "openehr"
-                                    },
-                                    "code_string": "en"
-                                },
-                                "encoding": {
-                                    "terminology_id": {
-                                        "value": "IANA"
-                                    },
-                                    "code_string": "utf-8"
-                                },
-                                "subject": {
-                                    "@xsi:type": "PARTY_SELF"
-                                },
-                                "time": {
-                                    "value": "2006-11-22T18:57:06"
-                                },
-                                "description": {
-                                    "@xsi:type": "ITEM_TREE",
-                                    "@archetype_node_id": "openEHR-EHR-ITEM_TREE.medication.v1",
-                                    "name": {
-                                        "value": "Medication description"
-                                    },
-                                    "items": [
-                                        {
-                                            "@xsi:type": "ELEMENT",
-                                            "@archetype_node_id": "at0001",
-                                            "name": {
-                                                "value": "Name of medication"
-                                            },
-                                            "value": {
-                                                "@xsi:type": "DV_TEXT",
-                                                "value": "Vitamin K"
-                                            }
-                                        }
-                                    ]
-                                },
-                                "ism_transition": {
-                                    "current_state": {
-                                        "value": "self",
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": "openehr"
-                                            },
-                                            "code_string": "0"
-                                        }
-                                    },
-                                    "transition": {
-                                        "value": null,
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": null
-                                            },
-                                            "code_string": null
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "@xsi:type": "ACTION",
-                                "@archetype_node_id": "openEHR-EHR-ACTION.medication.v1",
-                                "name": {
-                                    "value": "Hepatitis B"
-                                },
-                                "language": {
-                                    "terminology_id": {
-                                        "value": "openehr"
-                                    },
-                                    "code_string": "en"
-                                },
-                                "encoding": {
-                                    "terminology_id": {
-                                        "value": "IANA"
-                                    },
-                                    "code_string": "utf-8"
-                                },
-                                "subject": {
-                                    "@xsi:type": "PARTY_SELF"
-                                },
-                                "time": {
-                                    "value": "2006-11-22T18:57:06"
-                                },
-                                "description": {
-                                    "@xsi:type": "ITEM_TREE",
-                                    "@archetype_node_id": "openEHR-EHR-ITEM_TREE.medication-vaccine.v1",
-                                    "name": {
-                                        "value": "Vaccine description"
-                                    },
-                                    "items": [
-                                        {
-                                            "@xsi:type": "ELEMENT",
-                                            "@archetype_node_id": "at0001.1",
-                                            "name": {
-                                                "value": "Vaccine"
-                                            },
-                                            "value": {
-                                                "@xsi:type": "DV_TEXT",
-                                                "value": "Hepatitis B"
-                                            }
-                                        },
-                                        {
-                                            "@xsi:type": "CLUSTER",
-                                            "@archetype_node_id": "at0018",
-                                            "name": {
-                                                "value": "Administration information"
-                                            },
-                                            "items": [
-                                                {
-                                                    "@xsi:type": "ELEMENT",
-                                                    "@archetype_node_id": "at0022",
-                                                    "name": {
-                                                        "value": "Sequence number"
-                                                    },
-                                                    "value": {
-                                                        "@xsi:type": "DV_COUNT",
-                                                        "magnitude": 1
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                "ism_transition": {
-                                    "current_state": {
-                                        "value": "self",
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": "openehr"
-                                            },
-                                            "code_string": "0"
-                                        }
-                                    },
-                                    "transition": {
-                                        "value": null,
-                                        "defining_code": {
-                                            "terminology_id": {
-                                                "value": null
-                                            },
-                                            "code_string": null
-                                        }
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "lifecycle_state": {
-                "value": "completed",
-                "defining_code": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "532"
-                }
-            },
-            "name": "openEHR-EHR-COMPOSITION.discharge.en.v3"
+                "code_string": "249"
+            }
         }
-    ],
-    "Blood Glucose": [
-        {
-            "_id": {
-                "$oid": "5eaaf8e7c6a7352c4d2c37c5"
+    },
+    "uid": {
+        "value": "7baa7cb1-1e89-4c36-991b-66218e70a6a6::10aec661-5458-4ff6-8e63-c2265537196d::1"
+    },
+    "data": {
+        "@xsi:type": "COMPOSITION",
+        "@archetype_node_id": "openEHR-EHR-COMPOSITION.discharge.v1",
+        "name": {
+            "value": "Discharge Summary"
+        },
+        "language": {
+            "terminology_id": {
+                "value": "openehr"
             },
-            "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "@xmlns": "http://schemas.openehr.org/v1",
-            "@xsi:type": "ORIGINAL_VERSION",
-            "contribution": {
-                "id": {
-                    "@xsi:type": "GENERIC_ID",
-                    "value": "10aec661-5458-4ff6-8e63-c2265537196d::000000001569",
-                    "scheme": null
-                },
-                "namespace": null,
-                "type": null
+            "code_string": "en"
+        },
+        "territory": {
+            "terminology_id": {
+                "value": "ISO 1366"
             },
-            "commit_audit": {
-                "system_id": "10aec661-5458-4ff6-8e63-c2265537196d",
-                "committer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "EhrGateUnit"
+            "code_string": "036"
+        },
+        "category": {
+            "value": "event",
+            "defining_code": {
+                "terminology_id": {
+                    "value": "openehr"
                 },
-                "time_committed": {
-                    "value": "2006-11-22T18:57:01"
-                },
-                "change_type": {
-                    "value": "creation",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
-                        },
-                        "code_string": "249"
-                    }
-                }
+                "code_string": "433"
+            }
+        },
+        "composer": {
+            "@xsi:type": "PARTY_IDENTIFIED",
+            "name": "Peri Yankemout"
+        },
+        "context": {
+            "start_time": {
+                "value": "2006-11-22T18:57:06"
             },
-            "uid": {
-                "value": "939cec48-d629-4a3f-89f1-28c573387680::10aec661-5458-4ff6-8e63-c2265537196d::1"
-            },
-            "data": {
-                "@xsi:type": "COMPOSITION",
-                "@archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v1",
-                "name": {
-                    "value": "Blood Glucose"
-                },
-                "language": {
+            "setting": {
+                "value": "unknown",
+                "defining_code": {
                     "terminology_id": {
                         "value": "openehr"
                     },
-                    "code_string": "en"
+                    "code_string": "251"
+                }
+            },
+            "other_context": {
+                "@xsi:type": "ITEM_TREE",
+                "@archetype_node_id": "at0001",
+                "name": {
+                    "value": "Tree"
                 },
-                "territory": {
-                    "terminology_id": {
-                        "value": "ISO 1366"
-                    },
-                    "code_string": "036"
-                },
-                "category": {
-                    "value": "event",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
+                "items": [
+                    {
+                        "@xsi:type": "ELEMENT",
+                        "@archetype_node_id": "at0002",
+                        "name": {
+                            "value": "Episode identifier"
                         },
-                        "code_string": "433"
-                    }
-                },
-                "composer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "EhrGateUnit"
-                },
-                "context": {
-                    "start_time": {
-                        "value": "2006-11-22T18:57:01"
-                    },
-                    "setting": {
-                        "value": "event",
-                        "defining_code": {
-                            "terminology_id": {
-                                "value": "openEHR"
-                            },
-                            "code_string": "433"
+                        "value": {
+                            "@xsi:type": "DV_TEXT",
+                            "value": "2c4a06c2-e3bd-4cd3-a6bb-1fd83df66107"
                         }
                     }
+                ]
+            },
+            "health_care_facility": {
+                "name": "HappyBubs Hospital"
+            }
+        },
+        "content": [
+            {
+                "@xsi:type": "SECTION",
+                "@archetype_node_id": "openEHR-EHR-SECTION.interventions.v1",
+                "name": {
+                    "value": "Interventions"
                 },
-                "content": [
+                "items": [
                     {
-                        "@xsi:type": "OBSERVATION",
-                        "@archetype_node_id": "openEHR-EHR-OBSERVATION.laboratory-glucose.v1",
+                        "@xsi:type": "ACTION",
+                        "@archetype_node_id": "openEHR-EHR-ACTION.medication.v1",
                         "name": {
-                            "value": "Blood Glucose"
+                            "value": "Vitamin K"
                         },
                         "language": {
                             "terminology_id": {
@@ -944,749 +133,147 @@
                         "subject": {
                             "@xsi:type": "PARTY_SELF"
                         },
-                        "protocol": {
+                        "time": {
+                            "value": "2006-11-22T18:57:06"
+                        },
+                        "description": {
                             "@xsi:type": "ITEM_TREE",
-                            "@archetype_node_id": "at0033",
+                            "@archetype_node_id": "openEHR-EHR-ITEM_TREE.medication.v1",
                             "name": {
-                                "value": "Tree"
+                                "value": "Medication description"
                             },
                             "items": [
                                 {
-                                    "@xsi:type": "CLUSTER",
-                                    "@archetype_node_id": "at0039",
+                                    "@xsi:type": "ELEMENT",
+                                    "@archetype_node_id": "at0001",
                                     "name": {
-                                        "value": "Specimen details"
+                                        "value": "Name of medication"
                                     },
-                                    "items": [
-                                        {
-                                            "@xsi:type": "ELEMENT",
-                                            "@archetype_node_id": "at0040",
-                                            "name": {
-                                                "value": "DateTime received"
-                                            },
-                                            "value": {
-                                                "@xsi:type": "DV_DATE_TIME",
-                                                "value": "2006-11-22T18:57:01"
-                                            }
-                                        },
-                                        {
-                                            "@xsi:type": "ELEMENT",
-                                            "@archetype_node_id": "at0041",
-                                            "name": {
-                                                "value": "DateTime processed"
-                                            },
-                                            "value": {
-                                                "@xsi:type": "DV_DATE_TIME",
-                                                "value": "2006-11-22T18:57:01"
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        "data": {
-                            "@archetype_node_id": "at0001",
-                            "name": {
-                                "value": "data"
-                            },
-                            "origin": {
-                                "value": "2006-11-22T18:57:01"
-                            },
-                            "events": [
-                                {
-                                    "@xsi:type": "POINT_EVENT",
-                                    "@archetype_node_id": "at0002",
-                                    "name": {
-                                        "value": "Any event"
-                                    },
-                                    "time": {
-                                        "value": "2006-11-22T18:57:01"
-                                    },
-                                    "data": {
-                                        "@xsi:type": "ITEM_TREE",
-                                        "@archetype_node_id": "at0003",
-                                        "name": {
-                                            "value": "Tree"
-                                        },
-                                        "items": [
-                                            {
-                                                "@xsi:type": "ELEMENT",
-                                                "@archetype_node_id": "at0013.1",
-                                                "name": {
-                                                    "value": "Blood glucose"
-                                                },
-                                                "value": {
-                                                    "@xsi:type": "DV_QUANTITY",
-                                                    "magnitude": 100.0,
-                                                    "units": "mmol/l",
-                                                    "precision": 0
-                                                }
-                                            }
-                                        ]
+                                    "value": {
+                                        "@xsi:type": "DV_TEXT",
+                                        "value": "Vitamin K"
                                     }
                                 }
                             ]
-                        }
-                    }
-                ]
-            },
-            "lifecycle_state": {
-                "value": "completed",
-                "defining_code": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "532"
-                }
-            },
-            "name": "openEHR-EHR-COMPOSITION.encounter.en.v1"
-        }
-    ],
-    "Physical Activity Document": [
-        {
-            "_id": {
-                "$oid": "5eaaf119eccaa126ef6a5c0d"
-            },
-            "Physical activity": [
-                {
-                    "HISTORY": [
-                        {
-                            "EVENT": [
-                                {
-                                    "ITEM_TREE": [
-                                        {
-                                            "Type of activity": [
-                                                "skating"
-                                            ]
-                                        },
-                                        {
-                                            "Duration": [
-                                                [
-                                                    [
-                                                        "25"
-                                                    ]
-                                                ],
-                                                [
-                                                    "min"
-                                                ]
-                                            ]
-                                        },
-                                        {
-                                            "Intensity": [
-                                                "medium"
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "name": "physical_activity_document.en.v1"
-        }
-    ],
-    "Pathology Report": [
-        {
-            "_id": {
-                "$oid": "5eaaf934c872be88350a00c9"
-            },
-            "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "@xmlns": "http://schemas.openehr.org/v1",
-            "@xsi:type": "ORIGINAL_VERSION",
-            "contribution": {
-                "id": {
-                    "@xsi:type": "GENERIC_ID",
-                    "value": "10aec661-5458-4ff6-8e63-c2265537196d::000000001571",
-                    "scheme": null
-                },
-                "namespace": null,
-                "type": null
-            },
-            "commit_audit": {
-                "system_id": "10aec661-5458-4ff6-8e63-c2265537196d",
-                "committer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "EhrGateUnit"
-                },
-                "time_committed": {
-                    "value": "2006-11-22T18:57:03"
-                },
-                "change_type": {
-                    "value": "creation",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
                         },
-                        "code_string": "249"
-                    }
-                }
-            },
-            "uid": {
-                "value": "2b707a64-0358-41fa-9c76-73b7523b2515::10aec661-5458-4ff6-8e63-c2265537196d::1"
-            },
-            "data": {
-                "@xsi:type": "COMPOSITION",
-                "@archetype_node_id": "openEHR-EHR-COMPOSITION.report.v1",
-                "name": {
-                    "value": "Pathology Report"
-                },
-                "language": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "en"
-                },
-                "territory": {
-                    "terminology_id": {
-                        "value": "ISO 1366"
-                    },
-                    "code_string": "036"
-                },
-                "category": {
-                    "value": "event",
-                    "defining_code": {
-                        "terminology_id": {
-                            "value": "openehr"
-                        },
-                        "code_string": "433"
-                    }
-                },
-                "composer": {
-                    "@xsi:type": "PARTY_IDENTIFIED",
-                    "name": "EhrGateUnit"
-                },
-                "context": {
-                    "start_time": {
-                        "value": "2006-11-22T18:57:03"
-                    },
-                    "setting": {
-                        "value": "unknown",
-                        "defining_code": {
-                            "terminology_id": {
-                                "value": "openehr"
-                            },
-                            "code_string": "251"
-                        }
-                    },
-                    "other_context": {
-                        "@xsi:type": "ITEM_TREE",
-                        "@archetype_node_id": "at0001",
-                        "name": {
-                            "value": "Tree"
-                        },
-                        "items": [
-                            {
-                                "@xsi:type": "CLUSTER",
-                                "@archetype_node_id": "at0002",
-                                "name": {
-                                    "value": "Request details"
-                                },
-                                "items": [
-                                    {
-                                        "@xsi:type": "ELEMENT",
-                                        "@archetype_node_id": "at0004",
-                                        "name": {
-                                            "value": "Requesting clinician"
-                                        },
-                                        "value": {
-                                            "@xsi:type": "DV_TEXT",
-                                            "value": "Crine"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "@xsi:type": "CLUSTER",
-                                "@archetype_node_id": "at0006",
-                                "name": {
-                                    "value": "Report details"
-                                },
-                                "items": [
-                                    {
-                                        "@xsi:type": "ELEMENT",
-                                        "@archetype_node_id": "at0007",
-                                        "name": {
-                                            "value": "Report identifier"
-                                        },
-                                        "value": {
-                                            "@xsi:type": "DV_TEXT",
-                                            "value": "399d27ea-3a4f-4e95-9dcc-7c18cad21371"
-                                        }
-                                    },
-                                    {
-                                        "@xsi:type": "ELEMENT",
-                                        "@archetype_node_id": "at0014",
-                                        "name": {
-                                            "value": "Status"
-                                        },
-                                        "value": {
-                                            "@xsi:type": "DV_CODED_TEXT",
-                                            "value": "Final",
-                                            "defining_code": {
-                                                "terminology_id": {
-                                                    "value": "local"
-                                                },
-                                                "code_string": "at0015"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "@xsi:type": "ELEMENT",
-                                        "@archetype_node_id": "at0013",
-                                        "name": {
-                                            "value": "Date/time report issued"
-                                        },
-                                        "value": {
-                                            "@xsi:type": "DV_DATE_TIME",
-                                            "value": "2006-11-22T18:57:03"
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "health_care_facility": {
-                        "name": "Pathlab"
-                    }
-                },
-                "content": [
-                    {
-                        "@xsi:type": "SECTION",
-                        "@archetype_node_id": "openEHR-EHR-SECTION.findings.v1",
-                        "name": {
-                            "value": "Clinical findings"
-                        },
-                        "items": [
-                            {
-                                "@xsi:type": "OBSERVATION",
-                                "@archetype_node_id": "openEHR-EHR-OBSERVATION.laboratory.v1",
-                                "name": {
-                                    "value": "FBE, BGA, RUB"
-                                },
-                                "language": {
+                        "ism_transition": {
+                            "current_state": {
+                                "value": "self",
+                                "defining_code": {
                                     "terminology_id": {
                                         "value": "openehr"
                                     },
-                                    "code_string": "en"
-                                },
-                                "encoding": {
+                                    "code_string": "0"
+                                }
+                            },
+                            "transition": {
+                                "value": null,
+                                "defining_code": {
                                     "terminology_id": {
-                                        "value": "IANA"
+                                        "value": null
                                     },
-                                    "code_string": "utf-8"
-                                },
-                                "subject": {
-                                    "@xsi:type": "PARTY_SELF"
-                                },
-                                "protocol": {
-                                    "@xsi:type": "ITEM_TREE",
-                                    "@archetype_node_id": "at0033",
+                                    "code_string": null
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "@xsi:type": "ACTION",
+                        "@archetype_node_id": "openEHR-EHR-ACTION.medication.v1",
+                        "name": {
+                            "value": "Hepatitis B"
+                        },
+                        "language": {
+                            "terminology_id": {
+                                "value": "openehr"
+                            },
+                            "code_string": "en"
+                        },
+                        "encoding": {
+                            "terminology_id": {
+                                "value": "IANA"
+                            },
+                            "code_string": "utf-8"
+                        },
+                        "subject": {
+                            "@xsi:type": "PARTY_SELF"
+                        },
+                        "time": {
+                            "value": "2006-11-22T18:57:06"
+                        },
+                        "description": {
+                            "@xsi:type": "ITEM_TREE",
+                            "@archetype_node_id": "openEHR-EHR-ITEM_TREE.medication-vaccine.v1",
+                            "name": {
+                                "value": "Vaccine description"
+                            },
+                            "items": [
+                                {
+                                    "@xsi:type": "ELEMENT",
+                                    "@archetype_node_id": "at0001.1",
                                     "name": {
-                                        "value": "Tree"
+                                        "value": "Vaccine"
+                                    },
+                                    "value": {
+                                        "@xsi:type": "DV_TEXT",
+                                        "value": "Hepatitis B"
+                                    }
+                                },
+                                {
+                                    "@xsi:type": "CLUSTER",
+                                    "@archetype_node_id": "at0018",
+                                    "name": {
+                                        "value": "Administration information"
                                     },
                                     "items": [
                                         {
-                                            "@xsi:type": "CLUSTER",
-                                            "@archetype_node_id": "at0034",
+                                            "@xsi:type": "ELEMENT",
+                                            "@archetype_node_id": "at0022",
                                             "name": {
-                                                "value": "Identification"
+                                                "value": "Sequence number"
                                             },
-                                            "items": [
-                                                {
-                                                    "@xsi:type": "ELEMENT",
-                                                    "@archetype_node_id": "at0036",
-                                                    "name": {
-                                                        "value": "Lab"
-                                                    },
-                                                    "value": {
-                                                        "@xsi:type": "DV_TEXT",
-                                                        "value": "Pathlab"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                "data": {
-                                    "@archetype_node_id": "at0001",
-                                    "name": {
-                                        "value": "data"
-                                    },
-                                    "origin": {
-                                        "value": "2006-11-20T16:26:53"
-                                    },
-                                    "events": [
-                                        {
-                                            "@xsi:type": "POINT_EVENT",
-                                            "@archetype_node_id": "at0002",
-                                            "name": {
-                                                "value": "specimen collected"
-                                            },
-                                            "time": {
-                                                "value": "2006-11-20T16:26:53"
-                                            },
-                                            "data": {
-                                                "@xsi:type": "ITEM_TREE",
-                                                "@archetype_node_id": "at0003",
-                                                "name": {
-                                                    "value": "Tree"
-                                                },
-                                                "items": [
-                                                    {
-                                                        "@xsi:type": "CLUSTER",
-                                                        "@archetype_node_id": "at0004",
-                                                        "name": {
-                                                            "value": "Specimen"
-                                                        },
-                                                        "items": [
-                                                            {
-                                                                "@xsi:type": "ELEMENT",
-                                                                "@archetype_node_id": "at0006",
-                                                                "name": {
-                                                                    "value": "Description"
-                                                                },
-                                                                "value": {
-                                                                    "@xsi:type": "DV_TEXT",
-                                                                    "value": "BLOOD - EDTA"
-                                                                }
-                                                            }
-                                                        ]
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Haemoglobin",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "14134-1"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 13.0,
-                                                            "units": "g/dL",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Erythrocytes",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "789-8"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 5.1,
-                                                            "units": "10^9/mL",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "MCV",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "787-2"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 90.0,
-                                                            "units": "fL",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "MCH",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "785-6"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 28.0,
-                                                            "units": "pg",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "MCHC",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "786-4"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 35.2,
-                                                            "units": "pg/fL",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Haematocrit",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "11153-4"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 44.3,
-                                                            "units": "%",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "PLATELETS",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "11125-2"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 320.0,
-                                                            "units": "10^9/L",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "LEUCOCYTES",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "11156-7"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 10.6,
-                                                            "units": "10^9/L",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Neutrophils",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "751-8"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 7.4,
-                                                            "units": "10^9/L",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Lymphocytes",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "731-0"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 2.0,
-                                                            "units": "10^9/L",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Monocytes",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "742-7"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 0.9,
-                                                            "units": "10^9/L",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Eosinophils",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "711-2"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 0.3,
-                                                            "units": "10^9/L",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Basophils",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "704-7"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_QUANTITY",
-                                                            "magnitude": 0.0,
-                                                            "units": "10^9/L",
-                                                            "precision": 0
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "Film Comment",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "LN"
-                                                                },
-                                                                "code_string": "14869-2"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_TEXT",
-                                                            "value": "Normal"
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "GROUP & ANTIBODIES",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "2.16.840.1.113883.2.3.3.10.1.1.1.1.2"
-                                                                },
-                                                                "code_string": "BGA"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_TEXT",
-                                                            "value": "\n\t\t\t\t\t\t\t\t\t\tBlood group: O Rh: Pos\n\t\t\t\t\t\t\t\t\t\tKell neg. No antibodies detected."
-                                                        }
-                                                    },
-                                                    {
-                                                        "@xsi:type": "ELEMENT",
-                                                        "@archetype_node_id": "at0013",
-                                                        "name": {
-                                                            "@xsi:type": "DV_CODED_TEXT",
-                                                            "value": "RUBELLA VIRUS AB",
-                                                            "defining_code": {
-                                                                "terminology_id": {
-                                                                    "value": "2.16.840.1.113883.2.3.3.10.1.1.1.1.2"
-                                                                },
-                                                                "code_string": "RUB"
-                                                            }
-                                                        },
-                                                        "value": {
-                                                            "@xsi:type": "DV_TEXT",
-                                                            "value": "Titre 35 consistent with immunity to\n\t\t\t\t\t\t\t\t\t\tRubella"
-                                                        }
-                                                    }
-                                                ]
+                                            "value": {
+                                                "@xsi:type": "DV_COUNT",
+                                                "magnitude": 1
                                             }
                                         }
                                     ]
                                 }
+                            ]
+                        },
+                        "ism_transition": {
+                            "current_state": {
+                                "value": "self",
+                                "defining_code": {
+                                    "terminology_id": {
+                                        "value": "openehr"
+                                    },
+                                    "code_string": "0"
+                                }
+                            },
+                            "transition": {
+                                "value": null,
+                                "defining_code": {
+                                    "terminology_id": {
+                                        "value": null
+                                    },
+                                    "code_string": null
+                                }
                             }
-                        ]
+                        }
                     }
                 ]
+            }
+        ]
+    },
+    "lifecycle_state": {
+        "value": "completed",
+        "defining_code": {
+            "terminology_id": {
+                "value": "openehr"
             },
-            "lifecycle_state": {
-                "value": "completed",
-                "defining_code": {
-                    "terminology_id": {
-                        "value": "openehr"
-                    },
-                    "code_string": "532"
-                }
-            },
-            "name": "openEHR-EHR-COMPOSITION.report.en.v1"
+            "code_string": "532"
         }
-    ]
+    },
+    "name": "openEHR-EHR-COMPOSITION.discharge.en.v3"
 }
