@@ -431,10 +431,10 @@ def py_validator_response(request):
 
 collections = []
 def py_retrieve(request):
+    global pid
     if request.method == 'POST':
         if('pid' in request.POST):
-            ## get names of collections available for this patient from atlas  and store in collections array below
-            global pid
+            ## get names of collections available for this patient from atlas  and store in collections array below 
             pid = request.POST.get('patient_id')
             import pymongo
             from pymongo import MongoClient
@@ -490,7 +490,6 @@ def py_retrieve(request):
                 <div class="alert alert-danger" role="alert">
                 Please choose a composition from list 
                 </div>"""
-                global pid
                 print(pid)
                 return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
             print(requestedCollection)
@@ -524,7 +523,6 @@ def py_retrieve(request):
                 <div class="alert alert-danger" role="alert">
                 Please choose a composition from list
                 </div>"""
-                global pid
                 print(pid)
                 return render(request, 'choose_retrieval.html',{'pid':pid,'error':error, 'collections': collections})
             # get date in appropriate format
