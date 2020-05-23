@@ -31,7 +31,7 @@ chrome_options = webdriver.ChromeOptions()
 pid = ""
 
 #Only for Local.. COMMENT OUT FOR HEROKU
-#webdriverPath = os.path.join(BASE_DIR,'chromedriver')  #replace with chromedriver.exe for windows
+# webdriverPath = os.path.join(BASE_DIR,'chromedriver.exe')  #replace with chromedriver.exe for windows
 
 #Only for heroku.. COMMENT OUT FOR LOCAL
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
@@ -65,7 +65,7 @@ def py_upload(request):
 
                 global webdriverPath
                 #Only for Local.. COMMENT OUT FOR HEROKU
-                #driver = webdriver.Chrome(executable_path = webdriverPath)
+                # driver = webdriver.Chrome(executable_path = webdriverPath)
 
                 #Only for Heroku.. COMMENT OUT FOR LOCAL
                 driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
@@ -78,7 +78,7 @@ def py_upload(request):
 
                 submitbutton = driver.find_element_by_name("doit")
                 submitbutton.click()
-                element = driver.find_element_by_xpath("/html/body/main/section/div/section/div")
+                element = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/section/div/div/div")
                 source_code = element.get_attribute("outerHTML")
                 driver.quit()
 
@@ -431,15 +431,15 @@ def py_validator_response(request):
             except:
                 print("Document with same name already present")
             ##get patient id and save
-            return render(request, 'response.html')  #temporary placeholder
+            return render(request, 'response.html') 
         
     return render(request,'validator_response.html') 
 
 collections = []
 def py_retrieve(request):
-    global pid
     if request.method == 'POST':
         if('pid' in request.POST):
+            global pid
             ## get names of collections available for this patient from atlas  and store in collections array below 
             pid = request.POST.get('patient_id')
             import pymongo
